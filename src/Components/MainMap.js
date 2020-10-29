@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import GoogleAPIKey from './GoogleAPIkey';
 import { GoogleMap, useLoadScript, Marker, InfoWindow, LoadScript } from '@react-google-maps/api';
 import MapOptionSytle from './MapOptionStyle'
 // For date management
@@ -17,6 +16,7 @@ import "@reach/combobox/styles.css";
 import compass from './compassWhite.svg';
 // import { createPortal } from 'react-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const libraries = ['places'];
 const mapCountainerStyle = {
@@ -44,7 +44,7 @@ const center = {
 
 export default function MyComponents() {
     const { isLoaded, loadError} = useLoadScript({
-        googleMapsApiKey : GoogleAPIKey,
+        googleMapsApiKey : process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
     });
 
@@ -80,12 +80,12 @@ export default function MyComponents() {
         //https://cors-anywhere.herokuapp.com/{type_your_url_here} 
 
         // !!! answer complicated to read for now (28-18-2020)
-        //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/js?key=${GoogleAPIKey}&libraries=places&callback=initMap`)
+        //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`)
         // 
-        //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${GoogleAPIKey}`)
+        //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
         
         // Add the  " https://cors-anywhere.herokuapp.com/{type_your_url_here} "  for making in work -> wait for the use a proxy?
-        let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${GoogleAPIKey}`
+        let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
         console.log(url);
         
         axios.get(url)
@@ -153,6 +153,10 @@ export default function MyComponents() {
     <div>
         <h1> Expo </h1>
 
+
+        <Link to="/">
+            <button> Return </button>
+        </Link>    
         <Search panTo={panTo} />
         <Locate panTo={panTo} />
 
