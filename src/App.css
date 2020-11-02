@@ -33,6 +33,7 @@
 }
 
 .logo {
+  background-image: url("./Assets/Explore_it_logo.JPG");
   background-repeat: none;
   background-size: cover;
   height: 100px;
@@ -63,24 +64,75 @@
   justify-content: space-around;
 }
 
+/* ----------- CARD --------*/
 
-.card_image {
-  background-repeat: none;
+.card_image{
+  background-image: url("./Assets/girl_travel.jpg");
+  background-repeat: no-repeat;
   background-size: cover;
   height: 450px;
+  width: 100%;
 }
+
+
+
+
+
 
 /* ----------------------------------------- MAP -----------------------------*/
 
-/* .compass {
+.map { 
+  height: 85vh;
 
-  background-image: url("./Components/compassWhite.svg");
+
+}
+.content_on_map{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.logo_on_map {
+  background-image: url("./Assets/Logo_explore_it_minimal.JPG");
   background-repeat: no-repeat;
   background-size: cover;
 
-} */
+  height: 30px;
+  width: 30px;
+}
+
+.container_on_map h2 {
+  margin: 0 15px 0px 10px;
+}
+
+.google_map{
+  height: 90vh;
+  width: 100vw;
+}
+
+.compass {
+  background-image: url("./Assets/compass.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  height: 30px;
+  width: 30px;
+}
+
+.container_on_map{
+
+  
+}
+
+.title_on_map{
 
 
+}
+
+.return_on_map{
+
+
+}
 
 
 

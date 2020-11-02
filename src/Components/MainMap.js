@@ -13,10 +13,10 @@ import {
     ComboboxOptionText,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import compass from './compassWhite.svg';
 // import { createPortal } from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Compass from './Compass';
 
 const libraries = ['places'];
 const mapCountainerStyle = {
@@ -26,8 +26,8 @@ const mapCountainerStyle = {
 
 
 const center = {
-    lat: 43.6667,
-    lng: -79.3804,
+    lat: 50.8503,
+    lng: 4.3517,
   };
 
   const options = {
@@ -59,15 +59,18 @@ export default function MyComponents() {
 
     // To avoid recreate a "onClick" on each render of the app
     // If we don't overwrite in square bracket, it will always call a default
-    const onMapClick = React.useCallback((event) => {
-        setMarkers(current => [...current, 
+    const onMapClick = React.useCallback((e) => {
+        setMarkers((current) => [...current, 
             {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
+                lat: e.latLng.lat(),
+                lng: e.latLng.lng(),
                 time: new Date()
             }
         ]);
-    } ,[] );  
+    } , []);  
+
+
+    
 
 
     function getDataBase() {
@@ -85,7 +88,7 @@ export default function MyComponents() {
         //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
         
         // Add the  " https://cors-anywhere.herokuapp.com/{type_your_url_here} "  for making in work -> wait for the use a proxy?
-        let url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+        let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1000&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
         console.log(url);
         
         axios.get(url)
@@ -100,11 +103,27 @@ export default function MyComponents() {
                 let localPoints = data.results;
                 // show what is in the data
                 console.log(localPoints)
+                // relocate the map on the "myCoord" lat / lng 
                 panTo(myCoord);
                 // get the lat and lng of places
                 console.log(localPoints[0].geometry.location)
-                // Repositioning the map on the location of the localPoint
-                panTo(localPoints[0].geometry.location);
+
+
+                // localPoints.map( (element) => {
+                //     return(
+
+                //         <InfoWindow position={{
+                //             lat: element.geometry.location.lat,
+                //             lng: element.geometry.location.lng
+                //         }}>
+                //             <div>{element.name}</div>
+                //         </InfoWindow>
+                //     )
+                // })   
+
+
+               
+                                
                 })
             .catch(error => {
                 console.log(error.response)
@@ -112,22 +131,22 @@ export default function MyComponents() {
     }
     
     // Function to get the lat and lng of the user
-    function getInfoAroundUs(){
+    // function getInfoAroundUs(){
 
-        // Reset my position to me 
-       navigator.geolocation.getCurrentPosition(
-             (position) => { 
-                 console.log(position.coords)
-                 setMyPosition({ lat : position.coords.latitude, lng : position.coords.longitude});
-                 console.log(myPosition)
-                 return position.coords }   
-            )
-        // let myPosition = navigator.geolocation.getCurrentPosition(
-        //     (position) => { position.coords.latitude}
+    //     // Reset my position to me 
+    //    navigator.geolocation.getCurrentPosition(
+    //          (position) => { 
+    //              console.log(position.coords)
+    //              setMyPosition({ lat : position.coords.latitude, lng : position.coords.longitude});
+    //              console.log(myPosition)
+    //              return position.coords }   
+    //         )
+    //     // let myPosition = navigator.geolocation.getCurrentPosition(
+    //     //     (position) => { position.coords.latitude}
             
-        // 
+    //     // 
                 
-    }
+    // }
 
 
 
@@ -140,31 +159,35 @@ export default function MyComponents() {
     // allow user to reset their position on the map
     // for a specific place put in argument (from the search bar)
     const panTo = React.useCallback(({lat, lng}) => {
+
+       // setMyPosition({ lat :  lat ,lng: lng})
         // get the lat / lng from the place
         mapRef.current.panTo({lat, lng});
         // set the strength of the zoom
-        mapRef.current.setZoom(20);
+        mapRef.current.setZoom(15);
     })
 
     if(loadError) return "Error loading maps";
     if(!isLoaded) return "Loading Maps";
 
     return (
-    <div>
-        <h1> Expo </h1>
+    <div className="container_on_map">
 
+        <div className="content_on_map">
+            <Link to="/">
+                <div className="logo_on_map">
+                    {/* <button className="return_on_map"></button> */}
+                </div>
+            </Link>    
+            <Search panTo={panTo} />
+            <Compass panTo={panTo} />
+            <button onClick={getDataBase}>Data</button>
+        </div>
+        
 
-        <Link to="/">
-            <button> Return </button>
-        </Link>    
-        <Search panTo={panTo} />
-        <Locate panTo={panTo} />
-
-        <button onClick={getDataBase}>Data</button>
-
-        <GoogleMap 
+        <GoogleMap className="google_map"
             mapContainerStyle={mapCountainerStyle}
-            zoom={8} 
+            zoom={10} 
             center={center}
             options={options}
             onClick={onMapClick}
@@ -172,7 +195,9 @@ export default function MyComponents() {
             >
             
             {/* Allow to set a marker each time we click on the map */}
-            {markers.map((marker) => (
+            {markers.map((marker) => {
+               // setSelected(marker);
+                return(
                 <Marker
                     key={marker.time.toISOString()} 
                     position={{ lat:marker.lat, lng: marker.lng}}
@@ -187,7 +212,8 @@ export default function MyComponents() {
                         setSelected(marker);
                     }}
                 />
-            ))}
+                ) 
+                })}
 
             {/* Display a infobox when the marker is selected and display a h2 tag + p tag with time of the click */}
             {selected ? (
@@ -211,10 +237,11 @@ export default function MyComponents() {
 // navigator.geolocation use the browser build in localisation of the user
 function Locate({panTo}) {
     return (
-        <button className="locate" onClick={() => {
+        <button className="compass" onClick={() => {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                   panTo({
+                  
+                    panTo({
                        lat: position.coords.latitude,
                        lng: position.coords.longitude
                    })
@@ -222,7 +249,6 @@ function Locate({panTo}) {
                 () => null,
                 options)
             }}> 
-            <img className="compass" src={compass} alt="compass - locate me"/>
         </button>
     )
 }

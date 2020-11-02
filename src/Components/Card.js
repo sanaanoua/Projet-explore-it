@@ -3,16 +3,13 @@ import { Link } from 'react-router-dom'
 
 
 
-
-
-
 class Card extends React.Component {
 
 
         render() {
                 return (
                         <div className="Card"> 
-                                <img className="card_image"  src="image.jpg" />
+                                <img className="card_image"/>
                                 <div className="Content">
                                         <h1>Temps de découverte</h1>
                                         <div className="btn">

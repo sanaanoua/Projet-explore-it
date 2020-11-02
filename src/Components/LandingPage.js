@@ -9,7 +9,7 @@ render() {
         return (
    
         <div className="Container">
-                <img className="logo" src="logotravel.png" /> 
+                <img className="logo" src="../Assets/Explore_it_logo.JPG"/>
                 <Card />
         </div>
         )
