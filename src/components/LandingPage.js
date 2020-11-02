@@ -1,6 +1,7 @@
 import React from 'react'
 import Card from './Card'
-import {  Link } from 'react-router-dom'
+import logotravel from './img/logotravel.png'
+
 
 class LandingPage extends React.Component {
 
@@ -8,8 +9,8 @@ render() {
 
 return (
 <div className="Container">
-        <img className="logo" src="logotravel.png" /> 
-        <Card />
+        <img className="logo" src={logotravel} alt="" /> 
+        <Card />    
 </div>
 )
 } 

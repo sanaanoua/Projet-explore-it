@@ -1,19 +1,23 @@
-import React, { Component } from 'react'
+import React from 'react'
+import MainMap from './components/MainMap'
+import Map from './components/Map'
 import LandingPage from './components/LandingPage'
 import './App.css'
-import { BrowserRouter} from 'react-router-dom'
-export class App extends Component {
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import QuestionAPI from './components/QuestionAPI'
 
-  render() {
-    return (
-   <BrowserRouter>
-      <div className="App">
-      <LandingPage />
-      </div>
-   
-   </BrowserRouter>
-    )
-  }
+function App() {
+
+  return (
+    <div className="App">
+
+  <Switch>
+      <Route exact path="/" component={LandingPage}></Route>
+      <Route path="/map" component={Map}></Route>
+  </Switch> 
+  </div>
+  )
 }
 
-export default App
+export default App;
+
