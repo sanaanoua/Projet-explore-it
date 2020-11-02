@@ -1,23 +1,27 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-
-
+import React from 'react';
+import { Link } from 'react-router-dom';
+import image_girl from './Assets/girl_travel.jpg';
+import Button from './Button';
 
 function Card() {
         
-      
+        
+
         return (
-                <div className="Card"> 
-                        <img className="card_image"/>
-                        <div className="Content">
-                                <h1>Temps de découverte</h1>
-                                <div className="btn">
-                                        <button>1H</button>  
-                                        <button>2H</button>  
-                                        <button >4H</button>  
+                <div className="card"> 
+                        <img className="card_image" src={image_girl} alt="girl_travel"/>
+                        <div className="content">
+                                <div className="card_title">
+                                        <h1>Temps de découverte</h1>
+                                </div>
+                                
+                                <div className="button_container">
+                                        <Button time={1}></Button>
+                                        <Button time={2}></Button>
+                                        <Button time={4}></Button>
                                 </div>    
                                 <Link to="/map"                       
-                                 > <button>Genere ton parcours</button>
+                                 > <button className="button_parcours">Genere ton parcours</button>
                                 </Link>
                         </div>
                 </div>

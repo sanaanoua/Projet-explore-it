@@ -27,63 +27,121 @@
 /* ----------------------------------------- LANDING PAGE  -----------------------------*/
 .container {
   display: flex;
-  width: 100vw;
+  flex-direction: column;
   height: 100vh;
-
+  width: 100%;
 }
 
 .logo {
-  background-image: url("./Assets/Explore_it_logo.JPG");
-  background-repeat: none;
-  background-size: cover;
+  display: flex;
+  width: 50%;
   height: 100px;
-
+  margin-left: 25%;
 }
 
-
-
-.Card {
+/* --------------- CARD ----------- */
+.card {
   display: flex;
   flex-direction: column;
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 2%;
+  justify-content: center;
+  border: 1px solid;
+  border-radius: 20px;
+  box-shadow: 0 10px 10px 0 rgba(0,0,0,0.15);
 }
 
+.card_image {
+  width: 100%;
+  height: 450px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
 
 .content {
   display : flex;
-  
+  flex-direction: column;
 }
 
-.btn {
+.card_title{
+  height: 75px;
+  font-family: 'Times New Roman', Times, serif;
+}
 
-  width: 80%;
-  margin-left: 50px  ;
-  margin-bottom: 10px;
+.button_container{
   display: flex;
-  flex-direction: row;
+  width: 100%;
   justify-content: center;
   justify-content: space-around;
 }
 
-/* ----------- CARD --------*/
-
-.card_image{
-  background-image: url("./Assets/girl_travel.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 450px;
-  width: 100%;
+.button_time{
+  height: 30px;
+  width: 45px;
+  border-radius: 20px;
+  
 }
+
+.button_time:active{
+  background-color: red;
+}
+
+.button_parcours{
+  height: 35px;
+  width: 120px;
+  border-radius: 20px;
+
+}
+
+.button_parcours:active{
+  background-color: red;
+}
+
+
+/* ----------- Navbar --------*/
+
 
 
 
 
 /* ----------------------------------------- MAP -----------------------------*/
 
-.map { 
-  height: 85vh;
+.container_map {
+  height: 90vh;
+}
 
+.map {
+  height: 90vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.logo_on_map {
+  background-image: url("./Components/Assets/Logo_explore_it_minimal.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  height: 30px;
+  width: 30px;
+}
+
+.compass {
+  background-image: url("./Components/Assets/compass.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+}
+
+
+/* 
+.map { 
+  height: 90vh;
 
 }
+
 .content_on_map{
   display: flex;
   justify-content: space-between;
@@ -91,7 +149,7 @@
 }
 
 .logo_on_map {
-  background-image: url("./Assets/Logo_explore_it_minimal.JPG");
+  background-image: url("./Components/Assets/Logo_explore_it_minimal.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -109,158 +167,15 @@
 }
 
 .compass {
-  background-image: url("./Assets/compass.png");
+  background-image: url("./Components/Assets/compass.png");
   background-repeat: no-repeat;
   background-size: cover;
 
   height: 30px;
   width: 30px;
-}
-
-.container_on_map{
-
-  
-}
-
-.title_on_map{
+} */
 
 
-}
-
-.return_on_map{
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-h1{
-  position: absolute;
-  top : 1rem;
-  left: 1rem;
-  color : white;
-  z-index: 10;
-  margin: 0;
-  padding: 0;
-}
-
-.search {
-  position: absolute;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 400px;
-  z-index: 10;
-}
-
-.locate {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  z-index: 10;
-}
-
-.compass {
-  background-repeat: none;
-  height: 50px;
-  width: 50px;
-}
-
-.Container {
-  position: absolute;
-  width: 370px;
-  height: 600px;
-  left: 21px;
-  top: 110px;
-  border: 1px solid #000000;
-  box-sizing: border-box;
-  border-radius: 20px;
-  }
-
-  .logo {
-  position: absolute;
-  width: 100px;
-  height: 59.6px;
-  left: 135px;
-  top: 1px;
-  }
-
-  .image {
-  width: 370px;
-  height: 362px;
-  border-radius: 20px;
-  }
-
-  .Content {
-  width: 220px;
-  height: 170px;
-  margin-left: 50px;
-  margin-top: 10px
-  }
-  
-
-p {
-  position: absolute;
-  font-family: 'Times New Roman', Times, serif;
-  width: 266px;
-  height: 39px;
-  left: 50px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  box-sizing: border-box;
-  border-radius: 20px;
-  text-align: center;
-  }
-
-
-.btn{
-  display: flex;
-  justify-content: space-around;
-  }
-
-
-button {
-  height: 36px;
-  margin-top: 50px;
-  width: 45px;
-  border-radius: 20px;
-  background: #C4C4C4;
-  }
- */
 
 @keyframes App-logo-spin {
   from {

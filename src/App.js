@@ -13,12 +13,10 @@ function App() {
         <Route exact path="/" component={LandingPage}></Route>
         <Route path="/map" component={Map}></Route>
       </Switch>
-
     
     </div>
 
   )
-  
 }
 
 export default App;

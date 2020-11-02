@@ -172,7 +172,7 @@ function Map() {
 
 
   return (
-    <div className="containerMap">
+    <div className="container_map">
       <div className="map" id="map"></div>
       <button className="compass" id="setCenter" onClick={CenterToSelf} />
     
