@@ -3,6 +3,7 @@ import mapStyles from "./mapStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Compass from "./Compass";
+import Slider from "./Slider";
 
 function Map() {
 
@@ -175,11 +176,11 @@ function Map() {
     <div className="container_map">
       <div className="map" id="map"></div>
       <button className="compass" id="setCenter" onClick={CenterToSelf} />
-    
       <Link to="/">
         <button> Return </button>
       </Link>
       <button onClick={getDataBase}>Data</button>
+      <Slider/>
     </div>
   );
 }
