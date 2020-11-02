@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { Component, useEffect } from "react";
 import mapStyles from "./mapStyles";
 import { Link } from "react-router-dom";
-import CenterToSelf from "./CenterToSelf";
 import axios from "axios";
+import Compass from "./Compass";
 
 function Map() {
 
+ 
   //load Google Maps after the html
   useEffect(() => {
     loadMap();
+    CenterToSelf();
   });
 
   //init the map on window
@@ -48,6 +50,7 @@ function Map() {
       styles: mapStyles,
       disableDefaultUI: true,
     });
+    
 
     //direction for roads
     const directionsService = new window.google.maps.DirectionsService();
@@ -59,16 +62,16 @@ function Map() {
 
     const panToButton = document.getElementById("setCenter");
     panToButton.addEventListener("click", () => {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        };
-        map.setCenter(pos);
-        map.setZoom(20);
-      });
+        navigator.geolocation.getCurrentPosition((position) => {
+            const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            };
+            map.setCenter(pos);
+            map.setZoom(20);
+        });
     });
-  };
+    };
 
   //put direction services in direction renderer
   const calculateAndDisplayRoute = (
@@ -77,11 +80,10 @@ function Map() {
     location
   ) => {
     let end = new window.google.maps.LatLng(50.649896, 3.923982);
-     let waypts = [];
+    let waypts = [];
     const step = new window.google.maps.LatLng(50.676533, 3.936587);
-    waypts.push({
-      location: step,
-    });
+    waypts.push({ location: step });
+
     directionsService.route(
       {
         origin: location,
@@ -100,7 +102,7 @@ function Map() {
     );
   };
 
-  
+
   function getDataBase() {
     console.log("HYE HEY HEY");
     //getInfoAroundUs();
@@ -116,7 +118,7 @@ function Map() {
     //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
     
     // Add the  " https://cors-anywhere.herokuapp.com/{type_your_url_here} "  for making in work -> wait for the use a proxy?
-    let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1000&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+    let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1000&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
     console.log(url);
     
     axios.get(url)
@@ -154,13 +156,26 @@ function Map() {
         });
 }
 
+    const CenterToSelf = () => {
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                let myPos ={
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                }
+                console.log(myPos)
+                return myPos
+            }
+        )
+    };
+
 
   return (
     <div className="containerMap">
       <div className="map" id="map"></div>
-      <button className="compass" id="setCenter">
-        center on position
-      </button>
+      <button className="compass" id="setCenter" onClick={CenterToSelf} />
+    
       <Link to="/">
         <button> Return </button>
       </Link>

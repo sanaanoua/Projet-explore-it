@@ -42,7 +42,7 @@ const center = {
  
 
 
-export default function MyComponents() {
+export default function MainMap() {
     const { isLoaded, loadError} = useLoadScript({
         googleMapsApiKey : process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
