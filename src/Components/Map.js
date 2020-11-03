@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import mapStyles from "./mapStyles";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -7,13 +7,24 @@ import Slider from "./Slider";
 
 function Map() {
 
- 
-  //load Google Maps after the html
+  const [points, setPoints] = useState([50.649896, 3.923982]);
+  const [requestFinish, setRequestFinish] = useState(false);
+
+  //load Google Maps after the html = componenntDidMount
   useEffect(() => {
     loadMap();
-    CenterToSelf();
-  });
+    if(requestFinish){
+      loadMap();
+    }
 
+  }, []);
+
+  useEffect(() => {
+   getDataBase();
+  }, []);
+
+
+  
   //init the map on window
   const loadMap = () => {
     loadScript(
@@ -74,19 +85,22 @@ function Map() {
     });
     };
 
-  //put direction services in direction renderer
+  // //put direction services in direction renderer
   const calculateAndDisplayRoute = (
     directionsRenderer,
     directionsService,
     location
   ) => {
-    let end = new window.google.maps.LatLng(50.649896, 3.923982);
+    console.log(points[0]);
+    let end = new window.google.maps.LatLng(50.649896, 3.923982)
+    // let end = new window.google.maps.LatLng(points[0], points[1]);
     let waypts = [];
     const step = new window.google.maps.LatLng(50.676533, 3.936587);
     waypts.push({ location: step });
 
     directionsService.route(
       {
+
         origin: location,
         destination: end,
         waypoints: waypts,
@@ -106,11 +120,6 @@ function Map() {
 
   function getDataBase() {
     console.log("HYE HEY HEY");
-    //getInfoAroundUs();
-
-    // create a local variable of the coord of the user --> to be able to settle the origin
-    let myCoord = { lat: -33.8670522, lng: 151.1957362};
-
     //https://cors-anywhere.herokuapp.com/{type_your_url_here} 
 
     // !!! answer complicated to read for now (28-18-2020)
@@ -119,56 +128,50 @@ function Map() {
     //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
     
     // Add the  " https://cors-anywhere.herokuapp.com/{type_your_url_here} "  for making in work -> wait for the use a proxy?
-    let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1000&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+    let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?`
     console.log(url);
-    
-    axios.get(url)
+    const params = {
+        location: "50.8503,4.3517",
+        radius: "1000",
+        type: "restaurant",
+        key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+  
+    }
+
+    axios.get(url, {params})
         .then(res => {
             console.log("Hello" , res);
             return  res.data;
         })
         .then(data => {
             // show what is in the data retreive (answer from the request)
-            console.log(data)
             // create a local variable handling the data 
             let localPoints = data.results;
             // show what is in the data
-            console.log(localPoints)
-            // relocate the map on the "myCoord" lat / lng 
-            
-            // get the lat and lng of places
-            console.log(localPoints[0].geometry.location)
+            console.log("data array", localPoints)
+            setPoints(localPoints);  
 
-            // localPoints.map( (element) => {
-            //     return(
-
-            //         <InfoWindow position={{
-            //             lat: element.geometry.location.lat,
-            //             lng: element.geometry.location.lng
-            //         }}>
-            //             <div>{element.name}</div>
-            //         </InfoWindow>
-            //     )
-            // })   
-                 
+            setRequestFinish(true);      
             })
-        .catch(error => {
-            console.log(error.response)
-        });
-}
+        // .then( 
+        //   setRequestFinish(true)
+        // )          
+        // .catch(error => {
+        //              console.log(error.response)
+        //           });
+          }
+              const CenterToSelf = () => {
 
-    const CenterToSelf = () => {
-
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                let myPos ={
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                }
-                console.log(myPos)
-                return myPos
-            }
-        )
+                  navigator.geolocation.getCurrentPosition(
+                      (position) => {
+                          let myPos ={
+                              lat: position.coords.latitude,
+                              lng: position.coords.longitude
+                          }
+                          console.log(myPos)
+                          return myPos
+                      }
+                  )
     };
 
 
