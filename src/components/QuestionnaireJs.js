@@ -11,7 +11,7 @@ import React, { Component } from 'react'
         ... incorrect_answers].sort(() => Math.random()- 0.5); 
     
     return (
-    <div>
+    <div className="questionapi" >
         <div className="titlequest rounded-lg shadow-md  p-10" >
             <h2 
                 className="text-2xl" 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CenterToSelf from "./CenterToSelf"
 import axios from "axios";
 
+
 function Map() {
 
   //load Google Maps after the html

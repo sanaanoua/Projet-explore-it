@@ -7,7 +7,7 @@ class Card extends React.Component {
         render() {
                 return (
         <div className="Card"> 
-        <img className="card_image"/>
+        <img className="card_image" src={image} />
         <div className="Content">
                 <h1>Temps de découverte</h1>
                 <div className="btn">
@@ -16,7 +16,7 @@ class Card extends React.Component {
                         <button>4H</button>  
                 </div>    
                 <Link to="/map">
-                 <button>Genere ton parcours</button>
+                 <button className="check">Genere ton parcours</button>
                 </Link>
         </div>
         </div>

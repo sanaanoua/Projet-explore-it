@@ -11,10 +11,11 @@ function App() {
   return (
     <div className="App">
 
-  <Switch>
+  { <Switch>
       <Route exact path="/" component={LandingPage}></Route>
       <Route path="/map" component={Map}></Route>
-  </Switch> 
+  </Switch>  }
+  <QuestionAPI />
   </div>
   )
 }

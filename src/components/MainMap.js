@@ -24,7 +24,6 @@ const mapCountainerStyle = {
     height: "100vh",
 }
 
-
 const center = {
     lat: 50.8503,
     lng: 4.3517,
@@ -208,6 +207,7 @@ export default function MyComponents() {
                     //     origin: new window.google.maps.Point(0, 0),
                     //     anchor: new window.google.maps.Point(15,15)
                     // }}
+
                     onClick= {() => {
                         setSelected(marker);
                     }}
