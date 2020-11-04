@@ -1,35 +1,40 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 
     const QuestionnaireJs = ({
-        handleAnswer, 
-        data: { question, correct_answer, 
+        handleAnswer,
+        data: { question, correct_answer,
         incorrect_answers},
         }) => {
-    const shuffledAnswer = 
+    const shuffledAnswer =
         [correct_answer,
-        ... incorrect_answers].sort(() => Math.random()- 0.5); 
-    
+        ... incorrect_answers].sort(() => Math.random()- 0.5);
+
     return (
-    <div>
-        <div className="titlequest rounded-lg shadow-md  p-10" >
-            <h2 
-                className="text-2xl" 
+    <div className='quizDiv'>
+        <div className='txtQuestion' >
+            <h2
                 dangerouslySetInnerHTML={{ __html:
                 question }}
             />
         </div>
-        <div className="grid  "> 
+        <div className="grid ">
            {shuffledAnswer.map((answer) => (
             <button
-                className ={ "bg-white p-4 text-purple-800 font-semibold rounded shadow"}
-                onClick={()=> handleAnswer 
-                (answer)} 
+                className ={''}
+                onClick={()=> handleAnswer
+                (answer)}
                 dangerouslySetInnerHTML={{ __html:
                 answer}} />
             ))}
         </div>
+        {/* <div>
+            <Link to="/mappage">
+            <button>Return</button>
+            </Link>
+        </div> */}
     </div>
 );
 }
-export default QuestionnaireJs; 
+export default QuestionnaireJs;

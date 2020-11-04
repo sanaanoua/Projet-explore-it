@@ -20,8 +20,8 @@ function Card() {
                                         <Button time={2}></Button>
                                         <Button time={4}></Button>
                                 </div>    
-                                <Link to="/map"                       
-                                 > <button className="button_parcours">Genere ton parcours</button>
+                                <Link to="/mappage"                       
+                                 > <button className="button_parcours">Generer votre parcours</button>
                                 </Link>
                         </div>
                 </div>

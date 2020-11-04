@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Compass from "./Compass";
 import Slider from "./Slider";
+import ModalQuiz from './ModalQuiz'
+
+
 
 function Map() {
 
@@ -180,7 +183,6 @@ function Map() {
         <button> Return </button>
       </Link>
       <button onClick={getDataBase}>Data</button>
-      <Slider/>
     </div>
   );
 }

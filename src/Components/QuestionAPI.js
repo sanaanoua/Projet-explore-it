@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'  
-import   QuestionnaireJs  from './QuestionnaireJs'
+import   Questionnaire  from './Questionnaire'
 const API_URL = 'https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple';
 
  function QuestionAPI() {
@@ -30,11 +30,11 @@ const API_URL = 'https://opentdb.com/api.php?amount=10&category=23&difficulty=ea
 return  question.length > 0 ? (
         <div className="question">
         {currentIndex >= question.length ? (
-            <h1 className="text-3xl text-black font-bold"> 
+            <h1 className="textquestion"> 
             Your score was {score}
             </h1>
     ) : (
-        <QuestionnaireJs 
+        <Questionnaire 
             data={question[currentIndex]} 
             handleAnswer={handleAnswer} 
         />

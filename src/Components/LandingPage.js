@@ -11,6 +11,7 @@ render() {
         <div className="container">
                 <img className="logo" src={logo} alt="logo"/>
                 <Card />
+
         </div>
         )
     } 
