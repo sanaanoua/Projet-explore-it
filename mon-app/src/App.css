@@ -47,7 +47,7 @@ body {
   position: absolute;
 }
 
-.map {
+#map {
   position: relative;
   height: 97vh;
   width: 100vw;

@@ -8,12 +8,12 @@ function Card() {
       <div className="Content">
         <h1>Temps de découverte</h1>
         <div className="btn">
-          <button>1H</button>
-          <button>2H</button>
-          <button>4H</button>
+          <button>1h</button>
+          <button>2h</button>
+          <button>4h</button>
         </div>
         <Link to="/map">
-          <button>Genere ton parcours</button>
+          <button>genere ton parcours</button>
         </Link>
       </div>
     </div>
