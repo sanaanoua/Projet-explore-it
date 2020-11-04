@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 
-    const QuestionnaireJs = ({
+    const Questionnaire = ({
         handleAnswer, 
         data: { question, correct_answer, 
         incorrect_answers},
@@ -12,17 +12,17 @@ import React, { Component } from 'react'
     
     return (
     <div>
-        <div className="titlequest rounded-lg shadow-md  p-10" >
+        <div className="container_quiz__question" >
             <h2 
-                className="text-2xl" 
+                className="quiz__question" 
                 dangerouslySetInnerHTML={{ __html:
                 question }}
             />
         </div>
-        <div className="grid  "> 
+        <div className="container_quiz_answer  "> 
            {shuffledAnswer.map((answer) => (
             <button
-                className ={ "bg-white p-4 text-purple-800 font-semibold rounded shadow"}
+                className="quiz_answer"
                 onClick={()=> handleAnswer 
                 (answer)} 
                 dangerouslySetInnerHTML={{ __html:
@@ -32,4 +32,4 @@ import React, { Component } from 'react'
     </div>
 );
 }
-export default QuestionnaireJs; 
+export default Questionnaire; 

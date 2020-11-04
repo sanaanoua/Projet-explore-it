@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { GoogleMap, useLoadScript, Marker, InfoWindow, LoadScript } from '@react-google-maps/api';
+import React, { Component, useEffect } from 'react';
+import { GoogleMap, useLoadScript, Marker, InfoWindow, DirectionsRenderer, DirectionsService, withScriptJS, withGoogelMap } from '@react-google-maps/api';
 import MapOptionSytle from './MapOptionStyle'
 // For date management
 import {formatRelative} from "date-fns";
@@ -13,17 +13,16 @@ import {
     ComboboxOptionText,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-// import { createPortal } from 'react-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Compass from './Compass';
+
 
 const libraries = ['places'];
 const mapCountainerStyle = {
     width: "100vw",
     height: "100vh",
 }
-
 
 const center = {
     lat: 50.8503,
@@ -39,23 +38,40 @@ const center = {
     rotateControl: true
 
   }
+
+//   const DirectionsService = new google.maps.DirectionsService();
  
 
-
 export default function MainMap() {
+
     const { isLoaded, loadError} = useLoadScript({
         googleMapsApiKey : process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
-    });
-
-         
+    });         
 
     const [markers, setMarkers] = React.useState([]);
     // State to be able to display a infobox for a selected marker
     const [selected, setSelected] = React.useState(null);
     // State that manage the position on the user
     const [myPosition, setMyPosition] = React.useState({});
+    // State that manage the points to visit
+    const [points, setPoints] = React.useState(null);
+    // 
 
+    useEffect(() => {
+        // if(points !== null ){
+        //     console.log(points);
+        //     points.map( (element) => {
+        //        const spot = {
+        //             lat: element.geometry.location.lat,
+        //             lng: element.geometry.location.let
+        //         }
+        //         console.log(spot)
+        //         setMarkers(spot);
+        //     })
+        // }
+
+    })
 
     // To avoid recreate a "onClick" on each render of the app
     // If we don't overwrite in square bracket, it will always call a default
@@ -69,16 +85,8 @@ export default function MainMap() {
         ]);
     } , []);  
 
-
-    
-
-
     function getDataBase() {
         console.log("HYE HEY HEY");
-        //getInfoAroundUs();
-
-        // create a local variable of the coord of the user --> to be able to settle the origin
-        let myCoord = { lat: -33.8670522, lng: 151.1957362};
 
         //https://cors-anywhere.herokuapp.com/{type_your_url_here} 
 
@@ -88,10 +96,16 @@ export default function MainMap() {
         //axios.get(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=100&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
         
         // Add the  " https://cors-anywhere.herokuapp.com/{type_your_url_here} "  for making in work -> wait for the use a proxy?
-        let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1000&type=restaurant&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`
+        let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?`
         console.log(url);
-        
-        axios.get(url)
+        const params = {
+        location: "50.8503,4.3517",
+        radius: "1000",
+        type: "restaurant",
+        key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+  
+    }
+        axios.get(url, {params})
             .then(res => {
                 console.log("Hello" , res);
                 return  res.data;
@@ -103,53 +117,16 @@ export default function MainMap() {
                 let localPoints = data.results;
                 // show what is in the data
                 console.log(localPoints)
-                // relocate the map on the "myCoord" lat / lng 
-                panTo(myCoord);
+                setPoints(localPoints)
                 // get the lat and lng of places
                 console.log(localPoints[0].geometry.location)
 
-
-                // localPoints.map( (element) => {
-                //     return(
-
-                //         <InfoWindow position={{
-                //             lat: element.geometry.location.lat,
-                //             lng: element.geometry.location.lng
-                //         }}>
-                //             <div>{element.name}</div>
-                //         </InfoWindow>
-                //     )
-                // })   
-
-
-               
-                                
                 })
             .catch(error => {
                 console.log(error.response)
             });
     }
     
-    // Function to get the lat and lng of the user
-    // function getInfoAroundUs(){
-
-    //     // Reset my position to me 
-    //    navigator.geolocation.getCurrentPosition(
-    //          (position) => { 
-    //              console.log(position.coords)
-    //              setMyPosition({ lat : position.coords.latitude, lng : position.coords.longitude});
-    //              console.log(myPosition)
-    //              return position.coords }   
-    //         )
-    //     // let myPosition = navigator.geolocation.getCurrentPosition(
-    //     //     (position) => { position.coords.latitude}
-            
-    //     // 
-                
-    // }
-
-
-
     // allow to call the map in the code without re-rendering the map
     const mapRef = React.useRef();
     const onMapLoad = React.useCallback( (map) => {
@@ -159,29 +136,111 @@ export default function MainMap() {
     // allow user to reset their position on the map
     // for a specific place put in argument (from the search bar)
     const panTo = React.useCallback(({lat, lng}) => {
-
-       // setMyPosition({ lat :  lat ,lng: lng})
         // get the lat / lng from the place
         mapRef.current.panTo({lat, lng});
         // set the strength of the zoom
         mapRef.current.setZoom(15);
     })
 
+    
+    // Function that allow user to search a place by typing value in the search bar
+    function Search({ panTo }) {
+
+        // return an object that we can deconstrut 
+        // ready : is this result set up, ready to go,
+        // value : what the user typein
+        // suggestion : what is getting bak from the search with a status and data themself
+        // function to setthe value and function to clear the suggestion
+        const {
+            ready,
+            value,
+            suggestions: {status, data},
+            setValue,
+            clearSuggestions
+        } = usePlacesAutocomplete({
+            requestOptions: {
+                location: { lat: () => 43.653225,  lng: () => -79.383186, },
+                radius : 200 * 1000,
+            }
+        });
+
+        return (
+            <div className="search">
+                <Combobox 
+                    onSelect={async (address) => {
+                        // get the address , put should not fetch the date
+                        setValue(address, false);
+                        clearSuggestions();
+
+                        try{
+                            const results = await getGeocode({address});
+                            const { lat, lng } = await getLatLng(results[0]);
+                            console.log(lat, lng);
+                            panTo({lat, lng});
+                        } catch(error) {
+                            console.log("error search!")
+                        }
+                    }}
+                >
+                    <ComboboxInput 
+                        value={value}
+                        onChange={(e) => {
+                            setValue(e.target.value);
+                        }}
+                        disaabled={!ready}
+                        placeholder="Enter an adress"
+                    />
+                    <ComboboxPopover>
+                        <ComboboxList>
+                            {status === "OK" &&
+                                data.map(({ id,description }) => (
+                                    <ComboboxOption key={id} value={description}/>
+                            ))}
+                        </ComboboxList>
+                    </ComboboxPopover>
+            </Combobox>
+            </div>
+        )
+    }
+
     if(loadError) return "Error loading maps";
     if(!isLoaded) return "Loading Maps";
 
-    return (
+    // function generateParcours() {
+
+    //     const DirectionsService = new window.google.maps.DirectionsService();
+
+    //     DirectionsService.route({
+    //         origin: new window.google.maps.LatLng(41.8507300, -87.6512600),
+    //         destination: new window.google.maps.LatLng(41.8525800, -87.6514100),
+    //         travelMode: window.google.maps.TravelMode.DRIVING,
+    //       }, (result, status) => {
+    //         if (status === window.google.maps.DirectionsStatus.OK) {
+              
+    //             setMyPosition : result,
+             
+    //         } else {
+    //           console.error(`error fetching directions ${result}`);
+    //         }
+    //       });
+
+    //   }
+
+   
+
+      
+
+return (
     <div className="container_on_map">
 
         <div className="content_on_map">
             <Link to="/">
-                <div className="logo_on_map">
-                    {/* <button className="return_on_map"></button> */}
-                </div>
+                <div className="logo_on_map"/>
             </Link>    
             <Search panTo={panTo} />
-            <Compass panTo={panTo} />
+            <Compass panTo={panTo} myPosition={myPosition}/>
             <button onClick={getDataBase}>Data</button>
+            <button > Pos </button>
         </div>
         
 
@@ -231,87 +290,4 @@ export default function MainMap() {
                 ) : null}
         </GoogleMap>
     </div>)
-}
-
-// Function to locate the user to his/her specific geographical (lat/lng) point
-// navigator.geolocation use the browser build in localisation of the user
-function Locate({panTo}) {
-    return (
-        <button className="compass" onClick={() => {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                  
-                    panTo({
-                       lat: position.coords.latitude,
-                       lng: position.coords.longitude
-                   })
-                },
-                () => null,
-                options)
-            }}> 
-        </button>
-    )
-}
-
-
-
-
-// Function that allow user to search a place by typing value in the search bar
-function Search({ panTo }) {
-
-    // return an object that we can deconstrut 
-    // ready : is this result set up, ready to go,
-    // value : what the user typein
-    // suggestion : what is getting bak from the search with a status and data themself
-    // function to setthe value and function to clear the suggestion
-    const {
-        ready,
-        value,
-        suggestions: {status, data},
-        setValue,
-        clearSuggestions
-    } = usePlacesAutocomplete({
-        requestOptions: {
-            location: { lat: () => 43.653225,  lng: () => -79.383186, },
-            radius : 200 * 1000,
-        }
-    });
-
-    return (
-        <div className="search">
-            <Combobox 
-                onSelect={async (address) => {
-                    // get the address , put should not fetch the date
-                    setValue(address, false);
-                    clearSuggestions();
-
-                    try{
-                        const results = await getGeocode({address});
-                        const { lat, lng } = await getLatLng(results[0]);
-                        console.log(lat, lng);
-                        panTo({lat, lng});
-                    } catch(error) {
-                        console.log("error search!")
-                    }
-                }}
-             >
-                <ComboboxInput 
-                    value={value}
-                    onChange={(e) => {
-                        setValue(e.target.value);
-                    }}
-                    disaabled={!ready}
-                    placeholder="Enter an adress"
-                />
-                <ComboboxPopover>
-                    <ComboboxList>
-                        {status === "OK" &&
-                            data.map(({ id,description }) => (
-                                <ComboboxOption key={id} value={description}/>
-                        ))}
-                    </ComboboxList>
-                </ComboboxPopover>
-           </Combobox>
-         </div>
-    )
 }

@@ -105,12 +105,17 @@
 
 
 
-/* ----------------------------------------- MAP -----------------------------*/
+/* ----------------------------------------- MAP-PAGE -----------------------------*/
+
+
+/* ------------------------ Header ---------- */
 
 .container_map {
   height: 90vh;
 }
 
+
+/* ------------------------ Map --------------*/
 .map {
   height: 90vh;
   display: flex;
@@ -127,6 +132,25 @@
   width: 30px;
 }
 
+/* ------------------------ Quiz --------------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .compass {
   background-image: url("./Components/Assets/compass.png");
   background-repeat: no-repeat;
@@ -135,7 +159,7 @@
   width: 30px;
 }
 
-.quizz_slider{
+.slider{
 
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -146,9 +170,9 @@
 
 }
 
-/* 
+
 .map { 
-  height: 90vh;
+  height: 80vh;
 
 }
 
@@ -156,42 +180,4 @@
   display: flex;
   justify-content: space-between;
 
-}
-
-.logo_on_map {
-  background-image: url("./Components/Assets/Logo_explore_it_minimal.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  height: 30px;
-  width: 30px;
-}
-
-.container_on_map h2 {
-  margin: 0 15px 0px 10px;
-}
-
-.google_map{
-  height: 90vh;
-  width: 100vw;
-}
-
-.compass {
-  background-image: url("./Components/Assets/compass.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  height: 30px;
-  width: 30px;
-} */
-
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

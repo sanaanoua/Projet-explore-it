@@ -8,7 +8,6 @@ function Compass ({panTo}) {
         <button className="compass" onClick={() => {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                  
                     panTo({
                        lat: position.coords.latitude,
                        lng: position.coords.longitude

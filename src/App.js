@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
 import MainMap from './Components/MainMap'
-import Map from './Components/Map'
+import useMap from './Components/UseMaps'
+import MapPage from './Components/MapPage'
 import LandingPage from './Components/LandingPage';
+
 import { Switch,Route, } from 'react-router-dom';
 
 function App() {
@@ -11,7 +13,7 @@ function App() {
     
       <Switch>
         <Route exact path="/" component={LandingPage}></Route>
-        <Route path="/map" component={Map}></Route>
+        <Route path="/MapPage" component={MapPage}></Route>
       </Switch>
     
     </div>
