@@ -37,7 +37,7 @@ function QuestionAPI() {
       )}
     </div>
   ) : (
-    <h2 className="loading_quizz">Loading... </h2>
+    <h2 className="loading-quizz">Loading... </h2>
   );
 }
 export default QuestionAPI;

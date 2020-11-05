@@ -9,17 +9,17 @@ const Questionnaire = ({
   );
 
   return (
-    <div>
-      <div className="container_quiz__question">
+    <div className="container-quiz">
+      <div className="container-quiz-question">
         <h2
-          className="quiz__question"
+          className="quiz-question"
           dangerouslySetInnerHTML={{ __html: question }}
         />
       </div>
-      <div className="container_quiz_answer  ">
+      <div className="container-quiz-answer  ">
         {shuffledAnswer.map((answer) => (
-          <button
-            className="quiz_answer"
+          <p
+            className="quiz-answer"
             onClick={() => handleAnswer(answer)}
             dangerouslySetInnerHTML={{ __html: answer }}
           />

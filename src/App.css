@@ -84,7 +84,6 @@ body {
 /* ----------- Navbar --------*/
 /* ----------------------------------------- MAP-PAGE -----------------------------*/
 /* ------------------------ Header ---------- */
-/* ------------------------ Map --------------*/
 .container-map-page {
   position: relative;
   height: 100vh;
@@ -92,13 +91,14 @@ body {
   z-index: 100;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .content-map-page {
   background-color: #96b7d9;
   position: absolute;
   z-index: 100;
-  top: 50px;
+  top: 40px;
   height: 40px;
   width: 335px;
   margin-left: auto;
@@ -113,23 +113,26 @@ body {
   padding: 0;
   margin: auto;
   font-family: "Oswald", sans-serif;
+  font-size: 18px;
 }
 
 .dist-next-pos {
   padding: 0;
   margin: auto;
   font-family: "Oswald", sans-serif;
+  font-size: 18px;
 }
 
 .return-landing-page {
   background-image: url("./Components/Assets/left-arrow.png");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 15px;
-  width: 15px;
+  height: 16px;
+  width: 16px;
   margin: auto;
 }
 
+/* ------------------------ Map --------------*/
 .map-container {
   position: absolute;
   height: 100vh;
@@ -145,4 +148,31 @@ body {
   padding: 0;
 }
 
+/* ------------------------ swipe up --------------*/
+
+.slider {
+  position: absolute;
+  background-color: #96b7d9;
+  height: 370px;
+  bottom: -340px;
+  border-radius: 20px;
+  width: 100vw;
+}
+
+.image-swipe-container {
+  background-image: url("./Components/Assets/left-arrow.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 16px;
+  width: 16px;
+  margin: 7px auto;
+}
 /* ------------------------ Quiz --------------*/
+
+.container-quiz {
+  font-family: "Oswald", sans-serif;
+  font-weight: 100;
+  text-align: center;
+  margin: auto;
+  font-size: medium;
+}
