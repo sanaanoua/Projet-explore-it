@@ -1,28 +1,13 @@
+ html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 .App {
-  text-align: center;
+  margin: 0;
+  padding: 0;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 
 /* ----------------------------------------- LANDING PAGE  -----------------------------*/
 .container {
@@ -49,7 +34,7 @@
   justify-content: center;
   border: 1px solid;
   border-radius: 20px;
-  box-shadow: 0 10px 10px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.15);
 }
 
 .card_image {
@@ -60,124 +45,104 @@
 }
 
 .content {
-  display : flex;
+  display: flex;
   flex-direction: column;
 }
 
-.card_title{
+.card_title {
   height: 75px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
-.button_container{
+.button_container {
   display: flex;
   width: 100%;
   justify-content: center;
   justify-content: space-around;
 }
 
-.button_time{
+.button_time {
   height: 30px;
   width: 45px;
   border-radius: 20px;
-  
 }
 
-.button_time:active{
+.button_time:active {
   background-color: red;
 }
 
-.button_parcours{
+.button_parcours {
   height: 35px;
   width: 120px;
   border-radius: 20px;
-
 }
 
-.button_parcours:active{
+.button_parcours:active {
   background-color: red;
 }
 
-
 /* ----------- Navbar --------*/
-
-
-
-
-
 /* ----------------------------------------- MAP-PAGE -----------------------------*/
-
-
 /* ------------------------ Header ---------- */
-
-.container_map {
-  height: 90vh;
-}
-
-
 /* ------------------------ Map --------------*/
-.map {
-  height: 90vh;
-  display: flex;
-  justify-content: space-between;
+.container-map-page {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
 }
 
+.content-map-page {
+  background-color: #96b7d9;
+  position: absolute;
+  z-index: 100;
+  top: 50px;
+  height: 40px;
+  width: 335px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  border-radius: 20px;
+}
 
-.logo_on_map {
-  background-image: url("./Components/Assets/Logo_explore_it_minimal.jpg");
+.next-pos {
+  padding: 0;
+  margin: auto;
+  font-family: "Oswald", sans-serif;
+}
+
+.dist-next-pos {
+  padding: 0;
+  margin: auto;
+  font-family: "Oswald", sans-serif;
+}
+
+.return-landing-page {
+  background-image: url("./Components/Assets/left-arrow.png");
   background-repeat: no-repeat;
   background-size: cover;
+  height: 15px;
+  width: 15px;
+  margin: auto;
+}
 
-  height: 30px;
-  width: 30px;
+.map-container {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.map {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }
 
 /* ------------------------ Quiz --------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.compass {
-  background-image: url("./Components/Assets/compass.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 30px;
-  width: 30px;
-}
-
-.slider{
-
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background-color: #0056AC;
-  margin-left: 2.5%;
-  width: 95%;
-  height: 350px;
-
-}
-
-
-.map { 
-  height: 80vh;
-
-}
-
-.content_on_map{
-  display: flex;
-  justify-content: space-between;
-
-}

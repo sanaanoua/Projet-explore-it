@@ -1,14 +1,12 @@
 import React, { useEffect, useRef } from "react";
 
-function Map({ options, className, onMount1, onMount2 }) {
-
-  const props = { ref: useRef(), className };
+function Map({ options, onMount1, onMount2 }) {
+  const props = { ref: useRef() };
   const onLoad = () => {
     const map = new window.google.maps.Map(props.ref.current, options);
     onMount1 && onMount1(map);
     onMount2 && onMount2(map);
   };
-
 
   useEffect(() => {
     if (!window.google) {
@@ -21,12 +19,7 @@ function Map({ options, className, onMount1, onMount2 }) {
     } else onLoad();
   });
 
-  return (
-    <div
-      {...props}
-      style={{ height: `70vh`, margin: `1em 0`, borderRadius: `0.5em` }}
-    />
-  );
+  return <div {...props} className="map" />;
 }
 export default Map;
 

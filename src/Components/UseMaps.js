@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Map from "./Map";
-import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 function UseMaps({ mapProps }) {
   const [origin, setOrigin] = useState({ lat: 50.649896, lng: 3.923982 });
@@ -11,7 +9,6 @@ function UseMaps({ mapProps }) {
   });
 
   const [waypts, setWaypts] = useState([]);
- 
 
   const getPlaces = () => (map) => {
     let request = {
@@ -22,7 +19,7 @@ function UseMaps({ mapProps }) {
     const service = new window.google.maps.places.PlacesService(map);
     service.nearbySearch(request, (results, status) => {
       console.log(results);
-     
+
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         console.log("status" + status);
       }
@@ -69,7 +66,7 @@ function UseMaps({ mapProps }) {
   return (
     <>
       <Map {...mapProps} />
-      <button onClick={handleClick}> change roads </button>
+      {/*<button onClick={handleClick}> change roads </button>*/}
     </>
   );
 }

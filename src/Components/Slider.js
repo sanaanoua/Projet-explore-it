@@ -1,26 +1,25 @@
-import React, { Component } from 'react'
-import QuestionAPI from './QuestionAPI'
+import React, { Component } from "react";
+import QuestionAPI from "./QuestionAPI";
 
- class Slider extends Component {
-   state = { visible : false };
+class Slider extends Component {
+  state = { visible: false };
 
-    render() {
-        const buttonText= this.state.visible ? 'return' : 'Get quiz'; 
-        const slider = this.state.visible ? <QuestionAPI /> : null ;
+  render() {
+    const buttonText = this.state.visible ? "return" : "Get quiz";
+    const slider = this.state.visible ? <QuestionAPI /> : null;
     return (
-     <div className="slider" >
-                {slider}   
-            <button
-                onClick={() => {
-                this.setState({ visible: !this.state.visible}); 
-            }}
-            >
-                {buttonText}
-            </button>
-     
-     </div>);
-    } 
+      <div className="slider">
+        {slider}
+        <button
+          onClick={() => {
+            this.setState({ visible: !this.state.visible });
+          }}
+        >
+          {buttonText}
+        </button>
+      </div>
+    );
+  }
 }
 
-
-export default Slider
+export default Slider;
