@@ -32,13 +32,11 @@ class Card extends Component {
                                         <Button time={1} handleClick={this.handleClick}></Button>
                                         <Button time={2} handleClick={this.handleClick}></Button>
                                         <Button time={4} handleClick={this.handleClick}></Button>
-                                        {/* <Button time={2} onClick={() => this.handleClick(2)}></Button>
-                                        <Button time={4} onClick={() => this.handleClick(4)}></Button> */}
                                 </div>    
                                 <Link to={{
                                         pathname: "/MapPage",
                                         state: {
-                                           tripHour: this.state.tripHour
+                                           tripTime: this.state.tripHour
                                         }}
                                 }> <button className="button_parcours">Genere ton parcours</button>
                                 </Link>

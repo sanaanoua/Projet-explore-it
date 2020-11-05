@@ -1,19 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
 import Map from "./Map";
 
-function UseMaps({ mapProps }) {
+function UseMaps({ tripTime }) {
   const [origin, setOrigin] = useState({ lat: 50.649896, lng: 3.923982 });
   const [destination, setDestination] = useState({
     lat: 50.645545,
     lng: 3.541155,
   });
 
+  console.log(tripTime);
+  // Get a radius for seeking point of interest base on the time
+  let newRadius = 1000;
+  switch(tripTime){
+    case 1 : 
+        newRadius=5000;
+        break;
+    case 2 : 
+        newRadius=10000;
+        break;
+    case 4 :
+        newRadius=15000;
+        break;
+  }
+  console.log(newRadius);
+
   const [waypts, setWaypts] = useState([
        { lat: 50.555555, lng: 4.454545 },
     { lat: 51.555555, lng: 3.922589 },
   ]);
   
-  let localArraty = [];
   useEffect(() => {
       getPlaces();
   })
@@ -22,7 +37,7 @@ function UseMaps({ mapProps }) {
   const getPlaces = () => (map) => {
     let request = {
       location: { lat: 50.649896, lng: 3.923982 },
-      radius: "5000",
+      radius: newRadius,
       types: ["restaurant"],
     };
 
@@ -44,7 +59,7 @@ function UseMaps({ mapProps }) {
     const option = {
       origin: origin,
       destination: destination,
-      waypoints: waypts,
+      //waypoints: waypts,
       travelMode: window.google.maps.TravelMode.WALKING,
     };
     const calculateAndDisplayRoute = (
@@ -69,7 +84,7 @@ function UseMaps({ mapProps }) {
    
   };
 
-  mapProps = {
+  const mapProps = {
     onMount1: getPlaces(),
     onMount2: displayRoute(origin, destination),
   };
