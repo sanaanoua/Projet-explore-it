@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Map from "./Map";
-import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 function UseMaps({ mapProps }) {
   const [origin, setOrigin] = useState({ lat: 50.649896, lng: 3.923982 });
@@ -10,34 +8,43 @@ function UseMaps({ mapProps }) {
     lng: 3.541155,
   });
 
-  const [waypts, setWaypts] = useState([]);
- 
+  const [waypts, setWaypts] = useState([
+       { lat: 50.555555, lng: 4.454545 },
+    { lat: 51.555555, lng: 3.922589 },
+  ]);
+  
+  let localArraty = [];
+  useEffect(() => {
+      getPlaces();
+  })
+
 
   const getPlaces = () => (map) => {
     let request = {
       location: { lat: 50.649896, lng: 3.923982 },
-      radius: "10000",
+      radius: "5000",
       types: ["restaurant"],
     };
+
     const service = new window.google.maps.places.PlacesService(map);
     service.nearbySearch(request, (results, status) => {
       console.log(results);
-     
+
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         console.log("status" + status);
       }
     });
-  };
+  }
 
   const displayRoute = (origin, destination) => (map) => {
     const directionsService = new window.google.maps.DirectionsService();
     const directionsRenderer = new window.google.maps.DirectionsRenderer({
-      map: map,
+      map: map
     });
     const option = {
       origin: origin,
       destination: destination,
-      //waypoints: waypts,
+      waypoints: waypts,
       travelMode: window.google.maps.TravelMode.WALKING,
     };
     const calculateAndDisplayRoute = (
@@ -55,10 +62,11 @@ function UseMaps({ mapProps }) {
   };
 
   const handleClick = () => {
+    console.log("ouais ouais ouais");
     setOrigin({ lat: 50.749896, lng: 3.823982 });
     setDestination({ lat: 50.745545, lng: 3.741155 });
     console.log(origin, destination);
-    console.log("ouais ouais ouais");
+   
   };
 
   mapProps = {

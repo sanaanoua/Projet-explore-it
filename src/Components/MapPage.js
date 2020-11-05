@@ -4,8 +4,9 @@ import Slider from './Slider'
 import { Link } from 'react-router-dom';
 import UseMaps from './UseMaps';
 
- function MapPage() {
- 
+ function MapPage({ tripHour }) {
+    
+
     return (
         <div className="container_map_page">
             <div className="content_map_page">

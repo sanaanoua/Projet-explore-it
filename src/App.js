@@ -1,7 +1,5 @@
 import React from 'react';
 import './App.css';
-import MainMap from './Components/MainMap'
-import useMap from './Components/UseMaps'
 import MapPage from './Components/MapPage'
 import LandingPage from './Components/LandingPage';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-function Button({ time }) {
+function Button({ time, handleClick }) {
 
     return(
-        <button className="button_time"> {time}h </button>
+        <button className="button_time" onClick={(e) => handleClick(time,e)}> {time}h </button>
     )
 }
 

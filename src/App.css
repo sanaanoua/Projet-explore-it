@@ -107,11 +107,21 @@
 
 /* ----------------------------------------- MAP-PAGE -----------------------------*/
 
+.container_map_page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+}
 
 /* ------------------------ Header ---------- */
 
 .container_map {
   height: 90vh;
+}
+
+.header_map_page{
+  height: 5%;
 }
 
 
@@ -135,21 +145,47 @@
 /* ------------------------ Quiz --------------*/
 
 
+.slider{
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #0056AC;
+  margin-left: 2.5%;
+  width: 95%;
+  height: 55%;
+  z-index: 10;
 
+  display: flex;
+  flex-direction: column;
+}
 
+.container_quiz__question{
+  height: 40%;
+  width: 100%;
+  margin-top: 0;
+  position: absolute;
+}
+.quiz_question{
+  width: 100%;
+  height: 30%;
+  font-size: 12px;
+  font-family: 'Times New Roman', Times, serif;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 
+.container_quiz_answer{
+  margin-left: 20%;
+  z-index: 5;
+}
+.quiz_answer {
+  display: flex ;
+  width: 60%;
+  margin: 10px;
+  text-align: center;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
+/**--------------------------*/
 
 .compass {
   background-image: url("./Components/Assets/compass.png");
@@ -159,25 +195,4 @@
   width: 30px;
 }
 
-.slider{
 
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background-color: #0056AC;
-  margin-left: 2.5%;
-  width: 95%;
-  height: 350px;
-
-}
-
-
-.map { 
-  height: 80vh;
-
-}
-
-.content_on_map{
-  display: flex;
-  justify-content: space-between;
-
-}

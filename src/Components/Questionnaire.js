@@ -11,14 +11,14 @@ import React, { Component } from 'react'
         ... incorrect_answers].sort(() => Math.random()- 0.5); 
     
     return (
-    <div>
-        <div className="container_quiz__question" >
+    <div  className="container_quiz__question">
+        
             <h2 
                 className="quiz__question" 
                 dangerouslySetInnerHTML={{ __html:
                 question }}
             />
-        </div>
+        
         <div className="container_quiz_answer  "> 
            {shuffledAnswer.map((answer) => (
             <button

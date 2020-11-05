@@ -4,17 +4,20 @@ import QuestionAPI from './QuestionAPI'
  class Slider extends Component {
    state = { visible : false };
 
+    handleClick = () => {
+    this.setState({ visible: !this.state.visible}); 
+    }
+
     render() {
         const buttonText= this.state.visible ? 'return' : 'Get quiz'; 
         const slider = this.state.visible ? <QuestionAPI /> : null ;
     return (
      <div className="slider" >
-                {slider}   
+                 
             <button
-                onClick={() => {
-                this.setState({ visible: !this.state.visible}); 
-            }}
-            >
+                onClick={this.handleClick}
+            >   
+                {slider}  
                 {buttonText}
             </button>
      
