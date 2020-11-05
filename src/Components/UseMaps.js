@@ -7,9 +7,9 @@ function UseMaps({ tripTime }) {
     lat: 50.645545,
     lng: 3.541155,
   });
+  const [waypts, setWaypts] = useState([]);
 
-  console.log(tripTime);
-  // Get a radius for seeking point of interest base on the time
+  // Get a radius for seeking point of interest base on the time (tripTime)
   let newRadius = 1000;
   switch(tripTime){
     case 1 : 
@@ -24,15 +24,13 @@ function UseMaps({ tripTime }) {
   }
   console.log(newRadius);
 
-  const [waypts, setWaypts] = useState([
-       { lat: 50.555555, lng: 4.454545 },
-    { lat: 51.555555, lng: 3.922589 },
-  ]);
-  
-  useEffect(() => {
-      getPlaces();
-  })
+  let newArrayResult = [];
 
+  // useEffect(() => {
+  //     if(waypts.length == 0){
+  //       getPlaces();
+  //     }
+  // }, [])
 
   const getPlaces = () => (map) => {
     let request = {
@@ -44,12 +42,19 @@ function UseMaps({ tripTime }) {
     const service = new window.google.maps.places.PlacesService(map);
     service.nearbySearch(request, (results, status) => {
       console.log(results);
+      newArrayResult = results;
+      console.log(newArrayResult);
+      //setWaypts(results);
 
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         console.log("status" + status);
       }
     });
   }
+
+  console.log(newArrayResult)
+  // setWaypts(newArrayResult);
+  // console.log(waypts)
 
   const displayRoute = (origin, destination) => (map) => {
     const directionsService = new window.google.maps.DirectionsService();
@@ -59,7 +64,7 @@ function UseMaps({ tripTime }) {
     const option = {
       origin: origin,
       destination: destination,
-      //waypoints: waypts,
+      // waypoints: newArrayResult,
       travelMode: window.google.maps.TravelMode.WALKING,
     };
     const calculateAndDisplayRoute = (

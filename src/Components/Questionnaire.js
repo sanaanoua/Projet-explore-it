@@ -12,7 +12,6 @@ import React, { Component } from 'react'
     
     return (
     <div  className="container_quiz__question">
-        
             <h2 
                 className="quiz__question" 
                 dangerouslySetInnerHTML={{ __html:
