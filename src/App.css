@@ -134,13 +134,18 @@
 
 /* ------------------------------------- Quiz --------------------------------------*/
 
-
-.slider .btnslider{
-  background: cornflowerblue;
-  margin-left: -40px;
-  width: 20%;
+.btnslider{
+  background: rgb(169, 188, 224);
+  width: 100%;
   height: 35px;
   position: fixed;
+  margin-left: -210px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-top: -70px;
+  background: url(./Components/Assets/flecheIcone.png);
+
+
 }
 
 .container_quiz__question{
@@ -150,7 +155,14 @@
   position: absolute;
   z-index: 1;
   background:#B9C9D9;
+  overflow: hidden;
 }
+
+
+@keyframes your-animation-name {
+  /* style rules */
+}
+
 .quiz_question{
   width: 100%;
   height: 30%;
