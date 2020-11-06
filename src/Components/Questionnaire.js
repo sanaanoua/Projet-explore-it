@@ -11,9 +11,9 @@ import React, { Component } from 'react'
         ... incorrect_answers].sort(() => Math.random()- 0.5); 
     
     return (
-    <div  className="container_quiz__question">
+    <div  className="container_quiz">
             <h2 
-                className="quiz__question" 
+                className="quiz_question" 
                 dangerouslySetInnerHTML={{ __html:
                 question }}
             />

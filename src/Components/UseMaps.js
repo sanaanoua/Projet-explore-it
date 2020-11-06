@@ -26,45 +26,42 @@ function UseMaps({ tripTime }) {
 
   let newArrayResult = [];
 
-  // useEffect(() => {
-  //     if(waypts.length == 0){
-  //       getPlaces();
-  //     }
-  // }, [])
-
   const getPlaces = () => (map) => {
     let request = {
-      location: { lat: 50.649896, lng: 3.923982 },
+      location: { lat: -33.8670522, lng: 151.1957362 },
+      // location: { lat: 50.649896, lng: 3.923982 },
       radius: newRadius,
       types: ["restaurant"],
     };
 
     const service = new window.google.maps.places.PlacesService(map);
     service.nearbySearch(request, (results, status) => {
-      console.log(results);
-      newArrayResult = results;
-      console.log(newArrayResult);
-      //setWaypts(results);
+        console.log(results);
 
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         console.log("status" + status);
+        return results;
       }
     });
   }
 
-  console.log(newArrayResult)
-  // setWaypts(newArrayResult);
-  // console.log(waypts)
+  newArrayResult = getPlaces();
+  console.log(newArrayResult);
 
   const displayRoute = (origin, destination) => (map) => {
     const directionsService = new window.google.maps.DirectionsService();
     const directionsRenderer = new window.google.maps.DirectionsRenderer({
+      draggable: true,
       map: map
     });
     const option = {
       origin: origin,
       destination: destination,
-      // waypoints: newArrayResult,
+      waypoints: [
+        { location: "49 Route de Flobecq, Ath" },
+        { location: "15 Rue de vicinal, Ath "}
+      ],
+      optimizeWaypoints: true,
       travelMode: window.google.maps.TravelMode.WALKING,
     };
     const calculateAndDisplayRoute = (
@@ -97,7 +94,7 @@ function UseMaps({ tripTime }) {
   return (
     <>
       <Map {...mapProps} />
-      <button onClick={handleClick}> change roads </button>
+      <button className="setdirection" onClick={handleClick}></button>
     </>
   );
 }

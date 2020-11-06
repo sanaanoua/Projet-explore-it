@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Slider from './Slider'
 import { Link } from 'react-router-dom';
 import UseMaps from './UseMaps';
+import {motion, AnimatePresence } from "framer-motion";
 
  class MapPage extends Component {
     constructor(props){
@@ -12,27 +13,26 @@ import UseMaps from './UseMaps';
         }
     }
 
-    componentDidMount() {
-        console.log("mappage triphour" + this.state.tripTime);
-    }
-    
-
     render(){
-        return (
-            <div className="container_map_page">
-                <div className="content_map_page">
-                <Link to="/">
-                    <div className="logo_on_map"/>
-                </Link> 
-                {/* SearchBar to implemented*/}
+        return(
+        <motion.div
+            exit={{ x: "+100vw" }}
+            animate={{ x: 0 }}
+            initial={{ x: "=100vw" }}
+            transition={{ transition: "linear" }}
+            className="container-map-page"
+        >
+            <div className="content-map-page">
+                <Link to="/" className="return-landing-page"></Link>
+                <p className="next-pos">NEXT : GRAND PLACE</p>
+                <p className="dist-next-pos">200M</p>
             </div>
-                <UseMaps tripTime={this.state.tripTime}/>
-                <Slider />
-            </div>  
+            <UseMaps className="map-container" />
+            <Slider />
+        </motion.div>
         )
     }   
 }
-
 
 export default MapPage;
 

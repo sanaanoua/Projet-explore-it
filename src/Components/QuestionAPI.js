@@ -28,7 +28,7 @@ const API_URL = 'https://opentdb.com/api.php?amount=10&category=23&difficulty=ea
     };
 
 return  question.length > 0 ? (
-        <div className="question">
+        <div >
         {currentIndex >= question.length ? (
             <h1 className="score"> 
             Your score was {score}

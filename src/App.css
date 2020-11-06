@@ -106,93 +106,178 @@
 
 
 /* ----------------------------------------- MAP-PAGE -----------------------------*/
-
-.container_map_page {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.container-map-page {
+  position: relative;
   height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
+
+.content-map-page {
+  background-color: #96b7d9;
+  position: absolute;
+  z-index: 100;
+  top: 40px;
+  height: 40px;
+  width: 335px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  border-radius: 20px;
+}
+
 
 /* ------------------------ Header ---------- */
 
-.container_map {
-  height: 90vh;
-}
-
-.header_map_page{
-  height: 5%;
-}
-
-
-/* ------------------------ Map --------------*/
-.map {
-  height: 90vh;
-  display: flex;
-  justify-content: space-between;
-}
-
-
-.logo_on_map {
-  background-image: url("./Components/Assets/Logo_explore_it_minimal.jpg");
+.return-landing-page {
+  background-image: url("./Components/Assets/left-arrow.png");
   background-repeat: no-repeat;
   background-size: cover;
-
-  height: 30px;
-  width: 30px;
+  height: 16px;
+  width: 16px;
+  margin: auto;
 }
+
+.image-swipe-container {
+  background-image: url("./Components/Assets/left-arrow.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 16px;
+  width: 16px;
+  margin: 7px auto;
+}
+
+.next-pos {
+  padding: 0;
+  margin: auto;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+}
+
+.dist-next-pos {
+  padding: 0;
+  margin: auto;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+}
+
+/* ------------------------ Map --------------*/
+
+.map-container {
+  position: absolute;
+  top: 100px;
+    left: 0;
+    bottom: 100px;
+    right: 0;
+}
+
+.map {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.setdirection {
+  background-image: url("./Components/Assets/direct.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  height: 45px;
+  width: 45px;
+  padding: 9px 9px;
+  background-color: #96b7d9;
+  border: none;
+  bottom: 60px;
+  right: 10px;
+  border-radius: 5px;
+}
+
+/* ------------------------ Slider --------------*/
+
+
+.slider {
+  position: absolute;
+  background-color: #96b7d9;
+  height: 380px;
+  bottom: -340px;
+  border-radius: 20px;
+  width: 100vw;
+}
+
+.slider_activated {
+  position: absolute;
+  background-color: #96b7d9;
+  height: 370px;
+  bottom: 0px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 100vw;
+}
+
+.button_to_show {
+  background-image: url("./Components/Assets/up-arrow.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50px;
+  width: 50px;
+  margin: 7px auto;
+  background-color: #96b7d9;
+}
+
+.button_to_hide {
+  background-image: url("./Components/Assets/down-arrow.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50px;
+  width: 50px;
+  margin: 7px auto;
+  background-color: #96b7d9;
+}
+
+
 
 /* ------------------------ Quiz --------------*/
 
-
-.slider{
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  background-color: #0056AC;
-  margin-left: 2.5%;
-  width: 95%;
-  height: 55%;
-  z-index: 10;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.container_quiz__question{
-  height: 40%;
-  width: 100%;
-  margin-top: 0;
-  position: absolute;
-}
-.quiz_question{
-  width: 100%;
-  height: 30%;
-  font-size: 12px;
-  font-family: 'Times New Roman', Times, serif;
-  margin-left: auto;
-  margin-right: auto;
+.container_quiz {
+  font-family: "Oswald", sans-serif;
   text-align: center;
+  margin: auto;
+  font-size: medium;
+}
+
+.quiz_question{
+
 }
 
 .container_quiz_answer{
-  margin-left: 20%;
-  z-index: 5;
+
 }
-.quiz_answer {
-  display: flex ;
-  width: 60%;
-  margin: 10px;
-  text-align: center;
-  }
+
+.quiz_answer{
+  height: 30px;
+  width: 85%;
+  border-radius: 20px;
+}
+
+.quiz_answer:active{
+  background-color: blue;
+}
+
 
 /**--------------------------*/
 
-.compass {
+/* .compass {
   background-image: url("./Components/Assets/compass.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 30px;
   width: 30px;
-}
+} */
 
 

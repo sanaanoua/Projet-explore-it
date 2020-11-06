@@ -9,19 +9,19 @@ import QuestionAPI from './QuestionAPI'
     }
 
     render() {
-        const buttonText= this.state.visible ? 'return' : 'Get quiz'; 
+        // handle the show on and off the slider
+        const changeClassNameButton = this.state.visible ? 'button_to_hide' : 'button_to_show';
+        const changeClassNameSlider = this.state.visible ? "slider_activated" : "slider"
         const slider = this.state.visible ? <QuestionAPI /> : null ;
     return (
-     <div className="slider" >
-                 
-            <button
-                onClick={this.handleClick}
-            >   
-                {slider}  
-                {buttonText}
+     <div className={changeClassNameSlider}>
+           
+            <button className={changeClassNameButton}
+                onClick={this.handleClick}>   
             </button>
-     
-     </div>);
+            {slider}
+     </div>
+     );
     } 
 }
 
