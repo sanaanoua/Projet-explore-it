@@ -2,16 +2,19 @@ import React from "react";
 import "./App.css";
 import MapPage from "./Components/MapPage";
 import LandingPage from "./Components/LandingPage";
-
-import { Switch, Route } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Switch, Route, useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/" component={LandingPage}></Route>
-        <Route path="/MapPage" component={MapPage}></Route>
-      </Switch>
+      <AnimatePresence exitBeforeEnter>
+        <Switch location={location} key={location.pathname}>
+          <Route exact path="/" component={LandingPage}></Route>
+          <Route path="/MapPage" component={MapPage}></Route>
+        </Switch>
+      </AnimatePresence>
     </div>
   );
 }

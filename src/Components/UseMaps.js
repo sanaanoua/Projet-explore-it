@@ -66,7 +66,7 @@ function UseMaps({ mapProps }) {
   return (
     <>
       <Map {...mapProps} />
-      {/*<button onClick={handleClick}> change roads </button>*/}
+      <button className="setdirection" onClick={handleClick}></button>
     </>
   );
 }
