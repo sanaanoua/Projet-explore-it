@@ -1,16 +1,22 @@
 import React from 'react'
 import Card from './Card'
 import logo from './Assets/Explore_it_logo.jpg'
+import { motion, AnimatePresence } from "framer-motion";
 
 class LandingPage extends React.Component {
 
 render() {
         return (
-   
-        <div className="container">
-                <img className="logo" src={logo} alt="logo"/>
+        <motion.div
+                exit={{ x: "-100vh" }}
+                animate={{ x: 0 }}
+                initial={{ x: "-100vw" }}
+                transition={{ transition: "linear" }}
+                className="container"
+        >
+                <img className="logo" src={logo} alt="logo" />
                 <Card />
-        </div>
+        </motion.div>
         )
     } 
 }
