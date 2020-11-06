@@ -16,9 +16,9 @@ import QuestionAPI from './QuestionAPI'
     return (
      <div className={changeClassNameSlider}>
            
-            <button className={changeClassNameButton}
+            <div className={changeClassNameButton}
                 onClick={this.handleClick}>   
-            </button>
+            </div>
             {slider}
      </div>
      );
