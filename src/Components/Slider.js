@@ -1,28 +1,31 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import QuestionAPI from './QuestionAPI'
 
- class Slider extends Component {
-   state = { visible : false };
-
-    handleClick = () => {
-    this.setState({ visible: !this.state.visible}); 
-    }
-
-    render() {
-        // handle the show on and off the slider
-        const changeClassNameButton = this.state.visible ? 'button_to_hide' : 'button_to_show';
-        const changeClassNameSlider = this.state.visible ? "slider_activated" : "slider"
-        const slider = this.state.visible ? <QuestionAPI /> : null ;
+ const Slider = () => {
+    const [translate, set] = useState(false);
     return (
-     <div className={changeClassNameSlider}>
-           
-            <div className={changeClassNameButton}
-                onClick={this.handleClick}>   
-            </div>
-            {slider}
-     </div>
-     );
-    } 
+      <div
+        id="slider"
+        className="slider"
+        style={{
+          transform: `translateY(${translate ? -320 : 0}px)`,
+          transition: "transform 0.5s cubic-bezier(0.61, 1, 0.88, 1)",
+        }}
+      >
+        <div
+          className="image-swipe-container"
+          onClick={() => {
+            set((state) => !state);
+            console.log(translate);
+          }}
+          style={{
+            transform: `rotate(${translate ? 270 : 90}deg)`,
+            transition: "transform 0.5s cubic-bezier(0.61, 1, 0.88, 1)",
+          }}
+        ></div>
+        <QuestionAPI />
+      </div>
+    );
 }
 
 

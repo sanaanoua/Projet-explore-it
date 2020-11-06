@@ -1,285 +1,202 @@
-.App {
-  text-align: center;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
 
 
-/* ----------------------------------------- LANDING PAGE  -----------------------------*/
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
-}
-
-.logo {
-  display: flex;
-  width: 50%;
-  height: 100px;
-  margin-left: 25%;
-}
-
-/* --------------- CARD ----------- */
-.card {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  margin-left: 5%;
-  margin-top: 2%;
-  justify-content: center;
-  border: 1px solid;
-  border-radius: 20px;
-  box-shadow: 0 10px 10px 0 rgba(0,0,0,0.15);
-}
-
-.card_image {
-  width: 100%;
-  height: 450px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-.content {
-  display : flex;
-  flex-direction: column;
-}
-
-.card_title{
-  height: 75px;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.button_container{
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  justify-content: space-around;
-}
-
-.button_time{
-  height: 30px;
-  width: 45px;
-  border-radius: 20px;
-  
-}
-
-.button_time:active{
-  background-color: red;
-}
-
-.button_parcours{
-  height: 35px;
-  width: 120px;
-  border-radius: 20px;
-
-}
-
-.button_parcours:active{
-  background-color: red;
-}
-
-
-/* ----------- Navbar --------*/
-
-
-
-
-
-/* ----------------------------------------- MAP-PAGE -----------------------------*/
-.container-map-page {
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-  z-index: 100;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-.content-map-page {
-  background-color: #96b7d9;
-  position: absolute;
-  z-index: 100;
-  top: 40px;
-  height: 40px;
-  width: 335px;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  display: flex;
-  border-radius: 20px;
-}
-
-
-/* ------------------------ Header ---------- */
-
-.return-landing-page {
-  background-image: url("./Components/Assets/left-arrow.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 16px;
-  width: 16px;
-  margin: auto;
-}
-
-.image-swipe-container {
-  background-image: url("./Components/Assets/left-arrow.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 16px;
-  width: 16px;
-  margin: 7px auto;
-}
-
-.next-pos {
-  padding: 0;
-  margin: auto;
-  font-family: "Oswald", sans-serif;
-  font-size: 18px;
-}
-
-.dist-next-pos {
-  padding: 0;
-  margin: auto;
-  font-family: "Oswald", sans-serif;
-  font-size: 18px;
-}
-
-/* ------------------------ Map --------------*/
-
-.map-container {
-  position: absolute;
-  top: 100px;
-    left: 0;
-    bottom: 100px;
-    right: 0;
-}
-
-.map {
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
-.setdirection {
-  background-image: url("./Components/Assets/direct.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: absolute;
-  height: 45px;
-  width: 45px;
-  padding: 9px 9px;
-  background-color: #96b7d9;
-  border: none;
-  bottom: 60px;
-  right: 10px;
-  border-radius: 5px;
-}
-
-/* ------------------------ Slider --------------*/
-
-
-.slider {
-  position: absolute;
-  background-color: #96b7d9;
-  height: 380px;
-  bottom: -340px;
-  border-radius: 20px;
-  width: 100vw;
-}
-
-.slider_activated {
-  position: absolute;
-  background-color: #96b7d9;
-  height: 370px;
-  bottom: 0px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  width: 100vw;
-}
-
-.button_to_show {
-  background-image: url("./Components/Assets/up-arrow.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 50px;
-  width: 50px;
-  margin: 7px auto;
-  background-color: #96b7d9;
-}
-
-.button_to_hide {
-  background-image: url("./Components/Assets/down-arrow.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 50px;
-  width: 50px;
-  margin: 7px auto;
-  background-color: #96b7d9;
-}
-
-
-
-/* ------------------------ Quiz --------------*/
-
-.container_quiz {
-  font-family: "Oswald", sans-serif;
-  text-align: center;
-  margin: auto;
-  font-size: medium;
-}
-
-.quiz_question{
-
-}
-
-.container_quiz_answer{
-
-}
-
-.quiz_answer{
-  height: 30px;
-  width: 85%;
-  border-radius: 20px;
-  font-size: 20px;
-  margin: 5px 0px;
-}
-
-.quiz_answer:active{
-  background-color: blue;
-}
-
-
-/**--------------------------*/
-
-/* .compass {
-  background-image: url("./Components/Assets/compass.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 30px;
-  width: 30px;
-} */
-
-
+ html,
+ body {
+   margin: 0;
+   padding: 0;
+ }
+ 
+ .App {
+   margin: 0;
+   padding: 0;
+ }
+ 
+ /* ----------------------------------------- LANDING PAGE  -----------------------------*/
+ .container {
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   width: 100%;
+ }
+ 
+ .logo {
+   height: 70px;
+   margin: 0 auto;
+ }
+ 
+ /* --------------- CARD ----------- */
+ .card {
+   width: 90vw;
+   height: 70vh;
+   margin: auto;
+   border: 1px solid;
+   border-radius: 15px;
+   overflow: hidden;
+   position: relative;
+ }
+ 
+ .card_image {
+   position: absolute;
+   width: 100%;
+   height: 75%;
+   top: -10%;
+ }
+ 
+ .content {
+   position: absolute;
+   bottom: 0;
+   text-align: center;
+   width: 100%;
+   height: 35%;
+   font-family: "Oswald", sans-serif;
+ }
+ 
+ .card_title {
+   font-size: 23px;
+   margin: 3% auto;
+   padding: 0;
+ }
+ 
+ .button_container {
+   display: flex;
+   width: 80%;
+   margin: 2% auto 5% auto;
+   justify-content: center;
+   justify-content: space-around;
+ }
+ 
+ .button_time {
+   border: none;
+   background-color: white;
+   font-size: 23px;
+   font-family: "Oswald", sans-serif;
+   border-radius: 20px;
+   padding: 0 12px;
+   text-decoration: underline;
+ }
+ 
+ .button_time:active {
+   background-color: rgba(114, 114, 114, 0.6);
+ }
+ 
+ .button_parcours {
+   border: 1px solid;
+   border-radius: 20px;
+   background-color: white;
+   text-decoration: none;
+   font-family: "Oswald", sans-serif;
+   font-size: 27px;
+   width: 80%;
+   margin: 0 auto;
+ }
+ 
+ /* ----------- Navbar --------*/
+ /* ----------------------------------------- MAP-PAGE -----------------------------*/
+ /* ------------------------ Header ---------- */
+ .container-map-page {
+   position: relative;
+   height: 100vh;
+   width: 100vw;
+   z-index: 100;
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+ }
+ 
+ .content-map-page {
+   background-color: #96b7d9;
+   position: absolute;
+   z-index: 100;
+   top: 40px;
+   height: 40px;
+   width: 335px;
+   margin-left: auto;
+   margin-right: auto;
+   left: 0;
+   right: 0;
+   display: flex;
+   border-radius: 20px;
+ }
+ 
+ .next-pos {
+   padding: 0;
+   margin: auto;
+   font-family: "Oswald", sans-serif;
+   font-size: 18px;
+ }
+ 
+ .dist-next-pos {
+   padding: 0;
+   margin: auto;
+   font-family: "Oswald", sans-serif;
+   font-size: 18px;
+ }
+ 
+ .return-landing-page {
+   background-image: url("./Components/Assets/left-arrow.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 16px;
+   width: 16px;
+   margin: auto;
+ }
+ 
+ /* ------------------------ Map --------------*/
+ .map-container {
+   position: absolute;
+   height: 100vh;
+   width: 100vw;
+   margin: 0;
+   padding: 0;
+ }
+ 
+ .map {
+   height: 100vh;
+   width: 100vw;
+   margin: 0;
+   padding: 0;
+ }
+ 
+ /* ------------------------ swipe up --------------*/
+ 
+ .slider {
+   position: absolute;
+   background-color: #96b7d9;
+   height: 370px;
+   bottom: -340px;
+   border-radius: 20px;
+   width: 100vw;
+ }
+ 
+ .image-swipe-container {
+   background-image: url("./Components/Assets/left-arrow.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   height: 16px;
+   width: 16px;
+   margin: 7px auto;
+ }
+ 
+ .setdirection {
+   background-image: url("./Components/Assets/direct.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   position: absolute;
+   height: 45px;
+   width: 45px;
+   padding: 9px 9px;
+   background-color: #96b7d9;
+   border: none;
+   bottom: 60px;
+   right: 10px;
+   border-radius: 5px;
+ }
+ /* ------------------------ Quiz --------------*/
+ 
+ .container-quiz {
+   font-family: "Oswald", sans-serif;
+   font-weight: 100;
+   text-align: center;
+   margin: auto;
+   font-size: medium;
+ }
