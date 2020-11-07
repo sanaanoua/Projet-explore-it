@@ -1,25 +1,31 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import QuestionAPI from './QuestionAPI'
 
- class Slider extends Component {
-   state = { visible : false };
-
-    render() {
-        const buttonText= this.state.visible ? 'return' : 'Get quiz'; 
-        const slider = this.state.visible ? <QuestionAPI /> : null ;
+ const Slider = () => {
+    const [translate, set] = useState(false);
     return (
-     <div className="slider" >
-                {slider}   
-            <button
-                onClick={() => {
-                this.setState({ visible: !this.state.visible}); 
-            }}
-            >
-                {buttonText}
-            </button>
-     
-     </div>);
-    } 
+      <div
+        id="slider"
+        className="slider"
+        style={{
+          transform: `translateY(${translate ? -320 : 0}px)`,
+          transition: "transform 0.5s cubic-bezier(0.61, 1, 0.88, 1)",
+        }}
+      >
+        <div
+          className="image-swipe-container"
+          onClick={() => {
+            set((state) => !state);
+            console.log(translate);
+          }}
+          style={{
+            transform: `rotate(${translate ? 270 : 90}deg)`,
+            transition: "transform 0.5s cubic-bezier(0.61, 1, 0.88, 1)",
+          }}
+        ></div>
+        <QuestionAPI />
+      </div>
+    );
 }
 
 

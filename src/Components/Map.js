@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function Map({ options, className, onMount1, onMount2 }) {
 
   const props = { ref: useRef(), className };
+  const [myPosition,setMyPosition] = useState();
+
   const onLoad = () => {
     const map = new window.google.maps.Map(props.ref.current, options);
     onMount1 && onMount1(map);
@@ -21,12 +23,16 @@ function Map({ options, className, onMount1, onMount2 }) {
     } else onLoad();
   });
 
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      console.log(position)
+      
+    }
+  )
+
   return (
-    <div
-      {...props}
-      style={{ height: `70vh`, margin: `1em 0`, borderRadius: `0.5em` }}
-    />
-  );
+    <div {...props} className="map"/>
+  )
 }
 export default Map;
 
