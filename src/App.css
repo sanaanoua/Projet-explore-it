@@ -192,11 +192,35 @@
    border-radius: 5px;
  }
  /* ------------------------ Quiz --------------*/
- 
+ .container-quiz-question{
+   font-family: 'Times New Roman', Times, serif;
+   font-style: normal;
+   font-size: 10px;
+   margin: 8px;
+   background-color: rgb(255, 255, 255);
+   border:4px outset  ;
+   border-radius: 8px;
+   height: 60px;
+ }
+ .container-quiz-answer .quiz-answer:active {
+   background: rgb(255, 255, 255);
+ }
+ .container-quiz-answer .quiz-answer{
+   font-family: 'Times New Roman', Times, serif;
+   border-radius: 8px;
+   margin: 17px;
+   background-color:#d7dfe7;
+   height: 35px;
+   border:4px outset rgb(228, 220, 220);
+  }
  .container-quiz {
    font-family: "Oswald", sans-serif;
    font-weight: 100;
    text-align: center;
-   margin: auto;
    font-size: medium;
+ }
+
+ .container-quiz-answer  {
+  width: 70%;
+  margin-left: 14%;
  }

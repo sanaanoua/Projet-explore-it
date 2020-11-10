@@ -9,6 +9,7 @@ const Questionnaire = ({
   );
 
   return (
+
     <div className="container-quiz">
       <div className="container-quiz-question">
         <h2
@@ -16,16 +17,18 @@ const Questionnaire = ({
           dangerouslySetInnerHTML={{ __html: question }}
         />
       </div>
+      
       <div className="container-quiz-answer  ">
         {shuffledAnswer.map((answer) => (
           <p
             className="quiz-answer"
-            onClick={() => handleAnswer(answer)}
+            onClick={() => handleAnswer()}
             dangerouslySetInnerHTML={{ __html: answer }}
           />
         ))}
       </div>
     </div>
+
   );
 };
 export default Questionnaire;

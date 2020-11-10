@@ -1,43 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, {Component} from "react";
 import Questionnaire from "./Questionnaire";
-const API_URL =
-  "https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple";
 
-function QuestionAPI() {
-  const [question, setQuestions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
 
-  useEffect(() => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        setQuestions(data.results);
-      });
-  }, []);
+class QuestionAPI extends Component {
 
-  const handleAnswer = (answer) => {
-    const newIndex = currentIndex + 1;
-    setCurrentIndex(newIndex);
+  constructor(props) {
+    super(props)
+    this.state = {
+      questions: [],
+      currentQuestion: 0,
+    };
+    this.handleAnswer = this.handleAnswer.bind(this);
+  }
 
-    if (answer === question[currentIndex].correct_answer) {
-      setScore(score + 1);
-    }
-  };
+  componentDidMount(){
 
-  return question.length > 0 ? (
-    <div className="question">
-      {currentIndex >= question.length ? (
-        <h1 className="score">Your score was {score}</h1>
-      ) : (
-        <Questionnaire
-          data={question[currentIndex]}
-          handleAnswer={handleAnswer}
-        />
-      )}
-    </div>
-  ) : (
-    <h2 className="loading-quizz">Loading... </h2>
-  );
+    fetch("https://opentdb.com/api.php?amount=3&category=9&difficulty=easy&type=multiple")
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+          questions: data.results,         
+        });
+      },
+    )
+  }
+
+  handleAnswer = () => {
+    this.setState({
+        currentQuestion: this.state.currentQuestion + 1 
+    })
+  }
+
+  render() {
+    return  this.state.questions.length > 0 ? (
+       <div className="question"> 
+         {this.state.currentQuestion < this.state.questions.length ? (
+            <Questionnaire 
+              data={this.state.questions[this.state.currentQuestion]}
+              handleAnswer={this.handleAnswer}    
+            />
+          ) : (
+            <p> Continue the road </p>
+          ) }
+        </div>       
+    ) : ( 
+  <p> Loading </p>
+    )
+  } 
 }
-export default QuestionAPI;
+
+export default QuestionAPI
+
+
+
+
+
+
+
+
+
+
+
+
+
+

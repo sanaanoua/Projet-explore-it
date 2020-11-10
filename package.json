@@ -12,8 +12,8 @@
     "date-fns": "^2.16.1",
     "framer-motion": "^2.9.4",
     "http-proxy-middleware": "^1.0.6",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.4",
     "use-places-autocomplete": "^1.5.9"

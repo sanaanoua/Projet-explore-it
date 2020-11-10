@@ -7,7 +7,7 @@ function UseMaps({ tripTime }) {
     lat: 50.645545,
     lng: 3.541155,
   });
-  const [waypts, setWaypts] = useState([]);
+  const [waypts, setWaypts]   = useState([]);
 
   // Get a radius for seeking point of interest base on the time (tripTime)
   let newRadius = 1000;

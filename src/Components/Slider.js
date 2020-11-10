@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import QuestionAPI from './QuestionAPI'
 
+
  const Slider = () => {
     const [translate, set] = useState(false);
     return (
+     
       <div
         id="slider"
         className="slider"

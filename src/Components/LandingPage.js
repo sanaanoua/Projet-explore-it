@@ -11,7 +11,7 @@ render() {
                 exit={{ x: "-100vh" }}
                 animate={{ x: 0 }}
                 initial={{ x: "-100vw" }}
-                transition={{ transition: "linear" }}
+                transition={{ transition: "lineair" }}
                 className="container"
         >
                 <img className="logo" src={logo} alt="logo" />
