@@ -8,7 +8,7 @@ class Map extends React.Component {
       myPosition: null,
       map: null,
       originDir: null,
-      destinationDir: null,
+      destinationDir: { lat: 50.671502399999994, lng: 3.8925397999999998 },
       waypts: [],
       raduisPlace: 1000,
       isDisplay: false,
@@ -17,6 +17,7 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
+    //chage le url dans le script si il n'existe pas encore
     if (!window.google) {
       const loader = new Loader({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -34,24 +35,16 @@ class Map extends React.Component {
     console.log("did mount ");
   }
 
-  componentDidUpdate(prevState) {
-    // if (
-    //   prevState.originDir != this.state.originDir ||
-    //   prevState.destinationDir != this.state.destinationDir
-    // ) {
-    //   console.log("j'ai update ");
-    //   this.displayRoute();
-    // } else if (this.state.isDisplay) {
-    //   this.displayRoute();
-    // }
-  }
+  componentDidUpdate(prevState) {}
 
   componentWillUnmount() {}
 
+  //charger la map
   onLoad = () => {
     const mapOptions = {
-      center: { lat: 50.649896, lng: 3.923982 },
+      center: this.state.myPosition,
       zoom: 20,
+      //minZoom: 20,
       disableDefaultUI: true,
     };
     this.setState({
@@ -62,6 +55,7 @@ class Map extends React.Component {
     });
   };
 
+  //mettre à jour les raduis pour les places
   setRaduis = () => {
     console.log("setRaduis");
     switch (this.props.tripTime) {
@@ -78,6 +72,7 @@ class Map extends React.Component {
     console.log(this.state.raduisPlace);
   };
 
+  //prendre la position de l'utilisateur
   setUserPosition = () => {
     console.log("setUserPosition");
     navigator.geolocation.getCurrentPosition((position) => {
@@ -87,9 +82,17 @@ class Map extends React.Component {
           lng: position.coords.longitude,
         },
       });
+      this.setState({
+        destinationDir: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+      });
       console.log(this.state.myPosition);
     });
   };
+
+  //resortir les places pour faire le chemin (avec get places)
 
   getPlaces = () => {
     console.log("getPlaces");
@@ -110,18 +113,26 @@ class Map extends React.Component {
             this.setState({
               waypts: [...this.state.waypts, { location: e.vicinity }],
             });
-          }
+          } //else if (i === 5) {
+          //   this.setState({
+          //     destinationDir: { location: e.geometry.location },
+          //   });
+          // }
         });
+        console.log(results);
         console.log(this.state.waypts);
+        console.log(this.state.destinationDir);
         this.setState({ isDisplay: true });
       }
+      this.displayRoute();
     });
   };
 
+  //afficher la route
   displayRoute = () => {
     console.log("displayRoute");
     const optionForDirection = {
-      origin: this.state.originDir,
+      origin: this.state.myPosition,
       destination: this.state.destinationDir,
       waypoints: this.state.waypts,
       travelMode: window.google.maps.TravelMode.WALKING,
@@ -135,13 +146,15 @@ class Map extends React.Component {
             map: this.state.map,
           }).setDirections(result);
         }
+        //his.state.map.setCenter(this.state.myPosition);
       }
     );
   };
 
   handleClick = () => {
-    this.setState({ originDir: { lat: 50.843647, lng: 4.354276 } });
-    this.setState({ destinationDir: { lat: 50.85011, lng: 4.35863 } });
+    this.setState({
+      destinationDir: { location: "Chaussée de Bruxelles 335, Petit-Enghien" },
+    });
   };
 
   render() {
