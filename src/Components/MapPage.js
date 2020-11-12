@@ -1,16 +1,44 @@
-import { render } from "@testing-library/react";
 import React, { Component } from "react";
 import Slider from "./Slider";
 import { Link } from "react-router-dom";
 import Map from "./Map";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 class MapPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tripTime: props.location.state.tripTime,
+      stepDistance: 0,
+      currentStep: 0,
+      arrayTripInfo: [],
+      hasName: false,
+      isQuizAvailable: false
     };
+    this.handleStepDistance = this.handleStepDistance.bind(this);
+    this.handleTrip = this.handleTrip.bind(this);
+  }
+
+  handleStepDistance(distance){
+    console.log("mappage:",distance);
+    this.setState({stepDistance : distance.text})
+    if(distance.value<10){
+      this.setState({ isQuizAvailable: true})
+      this.setState({ currentStep: this.state.currentStep + 1})
+    }else{
+      this.setState({ isQuizAvailable: false})
+    }
+  }
+
+  handleTrip(newArray){
+    this.setState({arrayTripInfo: newArray})
+    console.log(this.state.arrayTripInfo);
+    console.log(this.state.arrayTripInfo[this.state.currentStep]);
+    this.setState({ hasName : true});
+  }
+ 
+  componentDidUpdate(){
+   
+    
   }
 
   render() {
@@ -24,11 +52,16 @@ class MapPage extends Component {
       >
         <div className="content-map-page">
           <Link to="/" className="return-landing-page"></Link>
-          <p className="next-pos">PROCHAIN POINT : GRAND PLACE</p>
-          <p className="dist-next-pos">200M</p>
+          <p className="next-pos">{ this.state.hasName ? (this.state.arrayTripInfo[this.state.currentStep].name) : ("No next step") }</p>
+          <p className="dist-next-pos">{this.state.stepDistance}</p>
         </div>
-        <Map className="map-container" tripTime={this.state.tripTime} />
-        <Slider />
+        <Map className="map-container" 
+          stepDistance={this.state.stepDistance} 
+          {...this.props} 
+          handleTrip={this.handleTrip}
+          handleStepDistance={this.handleStepDistance}
+        />
+        <Slider {...this.props}/>
       </motion.div>
     );
   }

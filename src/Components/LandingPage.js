@@ -1,9 +1,17 @@
 import React from "react";
 import Card from "./Card";
 import logo from "./Assets/Explore_it_logo.jpg";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 class LandingPage extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    
+    }
+  }
+
+
   render() {
     return (
       <motion.div
@@ -14,7 +22,10 @@ class LandingPage extends React.Component {
         className="container"
       >
         <img className="logo" src={logo} alt="logo" />
-        <Card />
+        <Card 
+          tripTime={this.props.tripTime}
+          handleTime = {this.props.handleTime}  
+        />
       </motion.div>
     );
   }

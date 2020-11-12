@@ -7,15 +7,11 @@ class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tripHour: null,
+     
     };
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(time, e) {
-    console.log(time);
-    this.setState({ tripHour: time });
-  }
+  
 
   render() {
     return (
@@ -25,15 +21,15 @@ class Card extends Component {
           <p className="card_title">Temps de découverte</p>
 
           <div className="button_container">
-            <Button time={1} handleClick={this.handleClick}></Button>
-            <Button time={2} handleClick={this.handleClick}></Button>
-            <Button time={4} handleClick={this.handleClick}></Button>
+            <Button time={1} handleClick={this.props.handleTime}></Button>
+            <Button time={2} handleClick={this.props.handleTime}></Button>
+            <Button time={4} handleClick={this.props.handleTime}></Button>
           </div>
           <Link
             to={{
               pathname: "/MapPage",
               state: {
-                tripTime: this.state.tripHour,
+                tripTime: this.state.tripTime
               },
             }}
           >

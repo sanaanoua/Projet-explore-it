@@ -5,19 +5,25 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      myPosition: null,
       map: null,
-      originDir: null,
-      destinationDir: { lat: 50.671502399999994, lng: 3.8925397999999998 },
-      waypts: [],
+      service: null,
+      renderer: null,
+      matrix: null,
+      myPosition: { lat: 0, lng: 0 },
+      lastStep: null,
+      arrayTrip: [],
+      arrayTripInfo: [],
+      currentStep: 0,
       raduisPlace: 1000,
-      isDisplay: false,
+      stepDistance: null,
+      stepTime: null,
     };
+    this.myRef = React.createRef();
     this.setUserPosition();
+    this.trackUserPosition();
   }
 
   componentDidMount() {
-    //chage le url dans le script si il n'existe pas encore
     if (!window.google) {
       const loader = new Loader({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -32,14 +38,22 @@ class Map extends React.Component {
       this.onLoad();
       this.getPlaces();
     }
-    console.log("did mount ");
   }
 
-  componentDidUpdate(prevState) {}
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.arrayTrip.length !== this.state.arrayTrip.length) {
+      this.displayRoute();
+      this.getDistance();
+    }else if(prevProps.stepDistance !== this.props.stepDistance){
+      this.displayRoute();
+      this.getDistance();
+    }
+    this.trackUserPosition();
+  }
 
   componentWillUnmount() {}
 
-  //charger la map
+  // Load the map 
   onLoad = () => {
     const mapOptions = {
       center: this.state.myPosition,
@@ -48,16 +62,20 @@ class Map extends React.Component {
       disableDefaultUI: true,
     };
     this.setState({
-      map: new window.google.maps.Map(
-        document.getElementById("map"),
-        mapOptions
-      ),
+      map: new window.google.maps.Map(this.myRef.current, mapOptions),
     });
+    this.setState({ service: new window.google.maps.DirectionsService() });
+    this.setState({
+      renderer: new window.google.maps.DirectionsRenderer({
+        map: this.state.map,
+        draggable: true,
+      }),
+    });
+    this.setState({ matrix: new window.google.maps.DistanceMatrixService() });
   };
 
-  //mettre à jour les raduis pour les places
+  // Set the radius around the user posistion
   setRaduis = () => {
-    console.log("setRaduis");
     switch (this.props.tripTime) {
       case 1:
         this.setState({ raduisPlace: 5000 });
@@ -68,101 +86,113 @@ class Map extends React.Component {
       case 4:
         this.setState({ raduisPlace: 15000 });
         break;
+      default :
+        this.setState({ raduisPlace: 1000});
     }
-    console.log(this.state.raduisPlace);
   };
 
-  //prendre la position de l'utilisateur
-  setUserPosition = () => {
-    console.log("setUserPosition");
-    navigator.geolocation.getCurrentPosition((position) => {
+ // Allow to track the user position
+  trackUserPosition = () => {
+    navigator.geolocation.watchPosition((pos) => {
       this.setState({
-        myPosition: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        },
+        myPosition: { lat: pos.coords.latitude, lng: pos.coords.longitude },
       });
-      this.setState({
-        destinationDir: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        },
-      });
-      console.log(this.state.myPosition);
     });
   };
 
-  //resortir les places pour faire le chemin (avec get places)
+  setUserPosition = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        lastStep: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
+      });
+    });
+  };
 
   getPlaces = () => {
-    console.log("getPlaces");
     this.setRaduis();
     let request = {
-      location: this.state.myPosition,
+      location: this.state.lastStep,
       radius: this.state.raduisPlace,
       types: ["restaurant"],
     };
     const service = new window.google.maps.places.PlacesService(this.state.map);
     service.nearbySearch(request, (results, status) => {
-      //console.log(results);
-
+      this.props.handleTrip(results);
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         results.map((e, i) => {
           if (i < 5) {
-            console.log(i);
             this.setState({
-              waypts: [...this.state.waypts, { location: e.vicinity }],
+              arrayTrip: [...this.state.arrayTrip, { placeId: e.place_id}],
             });
-          } //else if (i === 5) {
-          //   this.setState({
-          //     destinationDir: { location: e.geometry.location },
-          //   });
-          // }
+            this.setState({
+              arrayTripInfo: [...this.state.arrayTripInfo, { name : e.name, placeId : e.place_id, photos: e.photos}]
+            })
+            this.props.handleTrip(this.state.arrayTripInfo);
+          }
         });
-        console.log(results);
-        console.log(this.state.waypts);
-        console.log(this.state.destinationDir);
-        this.setState({ isDisplay: true });
       }
-      this.displayRoute();
+
+      this.setState({
+        arrayTrip: [...this.state.arrayTrip, this.state.lastStep],
+      });
+
+      // if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+      //    this.setState({ arrayTrip: results});
+      // }
+      
     });
   };
 
-  //afficher la route
+
+  // Display the road on the map
   displayRoute = () => {
-    console.log("displayRoute");
     const optionForDirection = {
       origin: this.state.myPosition,
-      destination: this.state.destinationDir,
-      waypoints: this.state.waypts,
+      destination: this.state.arrayTrip[this.state.currentStep],
       travelMode: window.google.maps.TravelMode.WALKING,
       optimizeWaypoints: true,
     };
-    new window.google.maps.DirectionsService().route(
-      optionForDirection,
-      (result, status) => {
-        if (status === "OK") {
-          new window.google.maps.DirectionsRenderer({
-            map: this.state.map,
-          }).setDirections(result);
-        }
-        //his.state.map.setCenter(this.state.myPosition);
+    this.state.service.route(optionForDirection, (result, status) => {
+      if (status === "OK") {
+        this.state.renderer.setDirections(result);
       }
-    );
-  };
-
-  handleClick = () => {
-    this.setState({
-      destinationDir: { location: "Chaussée de Bruxelles 335, Petit-Enghien" },
     });
   };
 
+  // Show the distance until the next step
+  getDistance = () => {
+    const option = {
+      origins: [this.state.myPosition],
+      destinations: [this.state.arrayTrip[this.state.currentStep]],
+      travelMode: "WALKING",
+    };
+    this.state.matrix.getDistanceMatrix(option, (result, status) => {
+      if (status === "OK") {
+        console.log("map",result.rows[0].elements[0].distance )
+         this.props.handleStepDistance(result.rows[0].elements[0].distance);
+      }
+    });
+  };
+
+  // Recenter the map on the user position with the click button
+  handleReCenter = () => {
+    console.log("click");
+    this.state.map.setCenter(
+      this.state.myPosition
+    )
+    this.state.map.setZoom(20);
+  };
+
+
+
   render() {
-    console.log("JE SUIS RENDER");
     return (
       <>
-        <div id="map" className="map" />
-        <button className="setdirection" onClick={this.handleClick}></button>
+        <div id="map" className="map" ref={this.myRef} />
+        <button className="setdirection" onClick={this.handleReCenter}></button>
       </>
     );
   }
