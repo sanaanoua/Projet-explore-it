@@ -191,35 +191,49 @@ body {
   border-radius: 10px;
 }
 /* ------------------------ Quiz --------------*/
-.container-quiz-question{
-  font-family: 'Times New Roman', Times, serif;
-  font-style: normal;
-  font-size: 10px;
-  margin: 8px;
-  background-color: rgb(255, 255, 255);
-  border:4px outset  ;
-  border-radius: 8px;
-  height: 60px;
-}
-.container-quiz-answer .quiz-answer:active {
-  background: rgb(255, 255, 255);
-}
-.container-quiz-answer .quiz-answer{
-  font-family: 'Times New Roman', Times, serif;
-  border-radius: 8px;
-  margin: 17px;
-  background-color:#d7dfe7;
-  height: 35px;
-  border:4px outset rgb(228, 220, 220);
- }
 .container-quiz {
-  font-family: "Oswald", sans-serif;
-  font-weight: 100;
-  text-align: center;
-  font-size: medium;
+  margin: 10px;
 }
+.container-quiz-question{
+ font-family: "Oswald", sans-serif;
+ font-size: 13px;
+ height: 60px;
+ color: rgb(0, 0, 0);
+ margin-left: 8%;
+ text-align: center;
 
-.container-quiz-answer  {
- width: 70%;
- margin-left: 14%;
 }
+.container-quiz-answer {
+ margin-top: 10%;
+}
+.container-quiz-answer .quiz-answer {
+ border-radius: 20px;
+ text-align: center;
+ margin: 20px;
+ background-color: white;
+ height: 30px;
+ width: 70%;
+ margin-left: 12%;
+ color: #000000;
+
+ }
+ .container-quiz-answer .quiz-answer:active {
+ background-color: #7fcdf1;
+ }
+.container-quiz-answer  p {
+ font-family: "Oswald", sans-serif;
+ margin-top: 10px;
+ font-weight: bold;
+ font-size: 12px;
+ margin-left: auto;
+ margin-right: auto;
+}
+.question p {
+ font-size: 30px;
+ text-align: center;
+ color: rgb(0, 0, 0);
+ font-weight: bold;
+ font-family: "Oswald", sans-serif;
+ margin-top: 30%;
+ }
+
