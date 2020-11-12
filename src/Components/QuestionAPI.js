@@ -16,7 +16,7 @@ class QuestionAPI extends Component {
   componentDidMount(){
 
     fetch("https://opentdb.com/api.php?amount=3&category=9&difficulty=easy&type=multiple")
-      .then(response => response.json())
+      .then(res => res.json())
       .then(data => {
         console.log(data);
         this.setState({
@@ -32,7 +32,7 @@ class QuestionAPI extends Component {
     })
   }
 
-  render() {
+  render() {  
     return  this.state.questions.length > 0 ? (
        <div className="question"> 
          {this.state.currentQuestion < this.state.questions.length ? (
@@ -40,7 +40,7 @@ class QuestionAPI extends Component {
               data={this.state.questions[this.state.currentQuestion]}
               handleAnswer={this.handleAnswer}    
             />
-          ) : (
+          ) : ( 
             <p> Continue the road </p>
           ) }
         </div>       
