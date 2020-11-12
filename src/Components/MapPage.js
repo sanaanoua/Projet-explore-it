@@ -16,10 +16,10 @@ class MapPage extends Component {
     };
     this.handleStepDistance = this.handleStepDistance.bind(this);
     this.handleTrip = this.handleTrip.bind(this);
+    this.handleIsQuizAvailable = this.handleIsQuizAvailable.bind(this);
   }
 
   handleStepDistance(distance){
-    console.log("mappage:",distance);
     this.setState({stepDistance : distance.text})
     if(distance.value<10){
       this.setState({ isQuizAvailable: true})
@@ -36,9 +36,12 @@ class MapPage extends Component {
     this.setState({ hasName : true});
   }
  
-  componentDidUpdate(){
-   
-    
+  handleIsQuizAvailable(){
+    this.setState({isQuizAvailable : !this.state.isQuizAvailable})
+  }
+
+
+  componentDidUpdate(){    
   }
 
   render() {
@@ -52,7 +55,13 @@ class MapPage extends Component {
       >
         <div className="content-map-page">
           <Link to="/" className="return-landing-page"></Link>
-          <p className="next-pos">{ this.state.hasName ? (this.state.arrayTripInfo[this.state.currentStep].name) : ("No next step") }</p>
+          <p className="next-pos">
+            {this.state.hasName ? 
+              this.state.arrayTripInfo[this.state.currentStep].name 
+              : "No next step"
+            } 
+          </p>
+
           <p className="dist-next-pos">{this.state.stepDistance}</p>
         </div>
         <Map className="map-container" 
@@ -61,7 +70,10 @@ class MapPage extends Component {
           handleTrip={this.handleTrip}
           handleStepDistance={this.handleStepDistance}
         />
-        <Slider {...this.props}/>
+        <Slider 
+          {...this.props}
+          isQuizAvailable={this.state.isQuizAvailable}
+          handleIsQuizAvailable={this.handleIsQuizAvailable}/>
       </motion.div>
     );
   }

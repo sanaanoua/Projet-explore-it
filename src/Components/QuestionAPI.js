@@ -41,7 +41,10 @@ class QuestionAPI extends Component {
               handleAnswer={this.handleAnswer}    
             />
           ) : ( 
-            <p> Continue the road </p>
+            <button 
+              className="button-continue-road" 
+              onClick={this.props.handleIsQuizAvailable}>Continue Trip ? 
+            </button>
           ) }
         </div>       
     ) : ( 

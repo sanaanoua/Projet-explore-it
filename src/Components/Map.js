@@ -41,15 +41,31 @@ class Map extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.arrayTrip.length !== this.state.arrayTrip.length) {
-      this.displayRoute();
-      this.getDistance();
-    }else if(prevProps.stepDistance !== this.props.stepDistance){
-      this.displayRoute();
-      this.getDistance();
+    if (window.google) {
+      if (prevState.arrayTrip.length !== this.state.arrayTrip.length) {
+        this.displayRoute();
+        this.getDistance();
+      } else if (
+        prevState.myPosition.lat !== this.state.myPosition.lat ||
+        prevState.myPosition.lng !== this.state.myPosition.lng
+      ) {
+        this.displayRoute();
+        this.getDistance();
+      }
     }
-    this.trackUserPosition();
   }
+
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.arrayTrip.length !== this.state.arrayTrip.length) {
+  //     this.displayRoute();
+  //     this.getDistance();
+  //   }else if(prevProps.stepDistance !== this.props.stepDistance){
+  //     this.displayRoute();
+  //     this.getDistance();
+  //   }
+  //   this.trackUserPosition();
+  // }
 
   componentWillUnmount() {}
 
@@ -68,7 +84,7 @@ class Map extends React.Component {
     this.setState({
       renderer: new window.google.maps.DirectionsRenderer({
         map: this.state.map,
-        draggable: true,
+       // draggable: true,
       }),
     });
     this.setState({ matrix: new window.google.maps.DistanceMatrixService() });
@@ -138,11 +154,6 @@ class Map extends React.Component {
       this.setState({
         arrayTrip: [...this.state.arrayTrip, this.state.lastStep],
       });
-
-      // if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-      //    this.setState({ arrayTrip: results});
-      // }
-      
     });
   };
 
@@ -179,7 +190,6 @@ class Map extends React.Component {
 
   // Recenter the map on the user position with the click button
   handleReCenter = () => {
-    console.log("click");
     this.state.map.setCenter(
       this.state.myPosition
     )
