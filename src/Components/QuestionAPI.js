@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, {Component} from "react";
 import Questionnaire from "./Questionnaire";
 
@@ -41,7 +42,14 @@ class QuestionAPI extends Component {
               handleAnswer={this.handleAnswer}    
             />
           ) : ( 
-            <p> Continue the road </p>
+           <motion.div
+             exit={{ x: "-300vh" }}
+             animate={{ x: 0 }}
+             initial={{ x: "100vw" }}
+             transition={{ transition: "" }}
+             className="container" >
+            <p> Continue your road... </p>
+            </motion.div>
           ) }
         </div>       
     ) : ( 

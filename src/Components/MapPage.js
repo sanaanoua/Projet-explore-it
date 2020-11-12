@@ -12,12 +12,8 @@ import { isThisQuarter } from 'date-fns';
     this.state = {
         tripTime : props.location.state.tripTime,
         };
-
     }
-
-   
-   
-
+    
     render(){
         return(
         <motion.div
