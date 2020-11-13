@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App_Color.css';
 import MapPage from './Components/MapPage'
 import LandingPage from './Components/LandingPage';
 import { AnimatePresence } from "framer-motion";
@@ -12,7 +12,6 @@ class App extends Component {
         tripTime : -1,
         myPosition : null,
         trip : null,
-        currentStep: 0
     }
 
     this.handleTime = this.handleTime.bind(this);
@@ -20,17 +19,15 @@ class App extends Component {
   }
   
   handleTime(time,e){
-    console.log("App time",time);
     this.setState({ tripTime: time });
   }
 
   handleTrip(newTrip,){
-    console.log("App trip :",newTrip);
     this.setState({ trip: newTrip});
   }
 
   componentDidUpdate(){
-    console.log("App didUpdate tripTime :",this.state.tripTime);
+   
   }
 
 

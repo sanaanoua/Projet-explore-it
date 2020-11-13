@@ -13,7 +13,6 @@ class Map extends React.Component {
       lastStep: null,
       arrayTrip: [],
       arrayTripInfo: [],
-      currentStep: 0,
       raduisPlace: 1000,
       stepDistance: null,
       stepTime: null,
@@ -24,6 +23,7 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
+    setInterval(() => this.trackUserPosition(), 5000);
     if (!window.google) {
       const loader = new Loader({
         apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -46,26 +46,17 @@ class Map extends React.Component {
         this.displayRoute();
         this.getDistance();
       } else if (
-        prevState.myPosition.lat !== this.state.myPosition.lat ||
+        prevState.myPosition.lat !== this.state.myPosition.lat ||   
         prevState.myPosition.lng !== this.state.myPosition.lng
       ) {
         this.displayRoute();
         this.getDistance();
+      // } else if(prevProps.currentStep !== this.props.currentStep){
+      //    this.displayRoute();
+      //    this.getDistance();
       }
     }
   }
-
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.arrayTrip.length !== this.state.arrayTrip.length) {
-  //     this.displayRoute();
-  //     this.getDistance();
-  //   }else if(prevProps.stepDistance !== this.props.stepDistance){
-  //     this.displayRoute();
-  //     this.getDistance();
-  //   }
-  //   this.trackUserPosition();
-  // }
 
   componentWillUnmount() {}
 
@@ -74,7 +65,6 @@ class Map extends React.Component {
     const mapOptions = {
       center: this.state.myPosition,
       zoom: 20,
-      //minZoom: 20,
       disableDefaultUI: true,
     };
     this.setState({
@@ -84,14 +74,14 @@ class Map extends React.Component {
     this.setState({
       renderer: new window.google.maps.DirectionsRenderer({
         map: this.state.map,
-       // draggable: true,
+        //draggable: true,
       }),
     });
     this.setState({ matrix: new window.google.maps.DistanceMatrixService() });
   };
 
   // Set the radius around the user posistion
-  setRaduis = () => {
+  setRadius = () => {
     switch (this.props.tripTime) {
       case 1:
         this.setState({ raduisPlace: 5000 });
@@ -124,11 +114,14 @@ class Map extends React.Component {
           lng: position.coords.longitude,
         },
       });
+      this.setState({
+        myPosition: { lat: position.coords.latitude, lng: position.coords.longitude },
+      });
     });
   };
 
   getPlaces = () => {
-    this.setRaduis();
+    this.setRadius();
     let request = {
       location: this.state.lastStep,
       radius: this.state.raduisPlace,
@@ -136,7 +129,6 @@ class Map extends React.Component {
     };
     const service = new window.google.maps.places.PlacesService(this.state.map);
     service.nearbySearch(request, (results, status) => {
-      this.props.handleTrip(results);
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         results.map((e, i) => {
           if (i < 5) {
@@ -146,11 +138,13 @@ class Map extends React.Component {
             this.setState({
               arrayTripInfo: [...this.state.arrayTripInfo, { name : e.name, placeId : e.place_id, photos: e.photos}]
             })
+            if(window.google){
+              this.props.handleTrip(this.state.arrayTripInfo);
+            }
             this.props.handleTrip(this.state.arrayTripInfo);
           }
         });
       }
-
       this.setState({
         arrayTrip: [...this.state.arrayTrip, this.state.lastStep],
       });
@@ -162,7 +156,7 @@ class Map extends React.Component {
   displayRoute = () => {
     const optionForDirection = {
       origin: this.state.myPosition,
-      destination: this.state.arrayTrip[this.state.currentStep],
+      destination: this.state.arrayTrip[this.props.currentStep],
       travelMode: window.google.maps.TravelMode.WALKING,
       optimizeWaypoints: true,
     };
@@ -177,12 +171,11 @@ class Map extends React.Component {
   getDistance = () => {
     const option = {
       origins: [this.state.myPosition],
-      destinations: [this.state.arrayTrip[this.state.currentStep]],
+      destinations: [this.state.arrayTrip[this.props.currentStep]],
       travelMode: "WALKING",
     };
     this.state.matrix.getDistanceMatrix(option, (result, status) => {
       if (status === "OK") {
-        console.log("map",result.rows[0].elements[0].distance )
          this.props.handleStepDistance(result.rows[0].elements[0].distance);
       }
     });
@@ -196,13 +189,12 @@ class Map extends React.Component {
     this.state.map.setZoom(20);
   };
 
-
-
   render() {
     return (
       <>
         <div id="map" className="map" ref={this.myRef} />
         <button className="setdirection" onClick={this.handleReCenter}></button>
+        {/* <button className="set-next-step" onClick={this.props.handleNextStep}></button> */}
       </>
     );
   }

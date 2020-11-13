@@ -3,32 +3,38 @@ body {
   margin: 0;
   padding: 0;
 }
-
+/* -----------------------------------------INITIAL ---------------------------------------------------------------------------------------*/
 .App {
   margin: 0;
   padding: 0;
+  height: 100vh;
+ 
+ 
 }
-/* -----------------------------------------INITIAL ---------------------------------------------------------------------------------------*/
+
 /* ----------------------------------------- LANDING PAGE  -----------------------------*/
 .container {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
+  flex-direction: column; 
+  height: 97.5vh; 
+  border: 10px solid #FF6B00;
+  border-radius: 0px;
 }
 
 .logo {
-  height: 70px;
-  margin: 0 auto;
+  height: 10vh;
+  margin: 5px auto;
 }
+
 
 /* --------------- CARD ----------- */
 .card {
   width: 90vw;
-  height: 70vh;
+  height: 80vh;
   margin: auto;
   border: 1px solid;
   border-radius: 15px;
+  box-shadow: 2px 2px 5px #525252 ;
   overflow: hidden;
   position: relative;
 }
@@ -74,7 +80,7 @@ body {
 }
 
 .button_time:active {
-  background-color: rgba(114, 114, 114, 0.6);
+  background-color: #FF6B00
 }
 
 .button_parcours {
@@ -86,6 +92,7 @@ body {
   font-size: 27px;
   width: 80%;
   margin: 0 auto;
+  box-shadow: 2px 2px 5px #525252;
 }
 
 /* ----------- Navbar --------*/
@@ -190,33 +197,75 @@ body {
   right: 10px;
   border-radius: 10px;
 }
+
+.set-next-step{
+    background-image: url("./Components/Assets/direct.png");
+    background-repeat: no-repeat;
+    background-size: 45px;
+    background-position: center;
+    position: absolute;
+    height: 62px;
+    width: 62px;
+    padding: 9px 9px;
+    background-color: #96b7d9;
+    border: none;
+    bottom: 60px;
+    left: 10px;
+    border-radius: 10px;
+}
+
+
 /* ------------------------ Quiz --------------*/
+
+.question{
+    display: flex;
+    justify-content: center;
+}
+
+
 .container-quiz {
   margin: 10px;
 }
-.container-quiz-question{
- font-family: "Oswald", sans-serif;
- font-size: 13px;
- height: 60px;
- color: rgb(0, 0, 0);
- margin-left: 8%;
- text-align: center;
 
+.container-quiz-question{
+    font-family: "Oswald", sans-serif;
+    font-size: 13px;
+    height: 60px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-bottom: 20px;
 }
+
+.quiz-question{
+    margin: 1% auto;
+    font-size: 20px;
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    font-family: "Oswald", sans-serif;
+}
+
 .container-quiz-answer {
- margin-top: 10%;
+ margin: 0;
+ text-align: center;
+ 
 }
 .container-quiz-answer .quiz-answer {
- border-radius: 20px;
- text-align: center;
- margin: 20px;
- background-color: white;
- height: 30px;
- width: 70%;
- margin-left: 12%;
- color: #000000;
-
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 1% auto;
+    text-align: center;
+    background-color: transparent;
+    height: 45px;
+    width: 80%;
+    font-size: 20px;
  }
+
+ .quiz-answer{
+     margin: 1% auto;
+ }
+
+
  .container-quiz-answer .quiz-answer:active {
  background-color: #7fcdf1;
  }
@@ -228,20 +277,22 @@ body {
  margin-left: auto;
  margin-right: auto;
 }
-.question p {
- font-size: 30px;
- text-align: center;
- color: rgb(0, 0, 0);
- font-weight: bold;
- font-family: "Oswald", sans-serif;
- margin-top: 30%;
- }
-
- .button-continue-road{
-   
- }
 
 
+.button-continue-road{
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 15% auto;
+    text-align: center;
+    background-color: transparent;
+    height: 50px;
+    width: 85%;
+    font-size: 20px;
+}
+
+.button-continue-road:active {
+    background-color: #7b98b4;
+}
 
 
  

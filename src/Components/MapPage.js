@@ -9,39 +9,46 @@ class MapPage extends Component {
     super(props);
     this.state = {
       stepDistance: 0,
-      currentStep: 0,
       arrayTripInfo: [],
+      currentStep: 0,
       hasName: false,
       isQuizAvailable: false
     };
     this.handleStepDistance = this.handleStepDistance.bind(this);
     this.handleTrip = this.handleTrip.bind(this);
     this.handleIsQuizAvailable = this.handleIsQuizAvailable.bind(this);
+    this.handleNextStep = this.handleNextStep.bind(this);
   }
 
   handleStepDistance(distance){
     this.setState({stepDistance : distance.text})
-    if(distance.value<10){
-      this.setState({ isQuizAvailable: true})
-      this.setState({ currentStep: this.state.currentStep + 1})
+    if(distance.value < 10) {
+      this.setState({ isQuizAvailable: true});
+      this.setState({ currentStep: this.state.currentStep + 1});
     }else{
       this.setState({ isQuizAvailable: false})
     }
   }
 
   handleTrip(newArray){
-    this.setState({arrayTripInfo: newArray})
-    console.log(this.state.arrayTripInfo);
-    console.log(this.state.arrayTripInfo[this.state.currentStep]);
-    this.setState({ hasName : true});
+    if (window.google) {
+      this.setState({ arrayTripInfo: newArray });
+      this.setState({ hasName: true });
+    }
   }
  
+
+  handleNextStep(){
+    this.setState({ currentStep: this.state.currentStep + 1});
+  }
+
+
   handleIsQuizAvailable(){
     this.setState({isQuizAvailable : !this.state.isQuizAvailable})
   }
 
-
   componentDidUpdate(){    
+    
   }
 
   render() {
@@ -66,9 +73,12 @@ class MapPage extends Component {
         </div>
         <Map className="map-container" 
           stepDistance={this.state.stepDistance} 
+          currentStep={this.state.currentStep}
           {...this.props} 
+         
           handleTrip={this.handleTrip}
           handleStepDistance={this.handleStepDistance}
+          handleNextStep={this.handleNextStep}
         />
         <Slider 
           {...this.props}
