@@ -8,50 +8,43 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
- 
- 
 }
 
 /* ----------------------------------------- LANDING PAGE  -----------------------------*/
 .container {
   display: flex;
-  flex-direction: column; 
-  height: 97.5vh; 
-  border: 10px solid #FF6B00;
-  border-radius: 0px;
+  flex-direction: column;
 }
 
 .logo {
+  position: absolute;
   height: 10vh;
-  margin: 5px auto;
+  z-index: 5;
 }
-
 
 /* --------------- CARD ----------- */
 .card {
-  width: 90vw;
-  height: 80vh;
+  width: 100vw;
+  height: 100vh;
   margin: auto;
-  border: 1px solid;
-  border-radius: 15px;
-  box-shadow: 2px 2px 5px #525252 ;
   overflow: hidden;
   position: relative;
+  background: white;
 }
 
 .card_image {
   position: absolute;
   width: 100%;
-  height: 75%;
-  top: -10%;
+  height: 70%;
+  z-index: 1;
 }
 
 .content {
   position: absolute;
-  bottom: 0;
+  top: 72%;
   text-align: center;
   width: 100%;
-  height: 35%;
+  height: 30%;
   font-family: "Oswald", sans-serif;
 }
 
@@ -70,17 +63,17 @@ body {
 }
 
 .button_time {
-  border: none;
+  border: 2px solid rgb(90, 28, 204);
   background-color: white;
   font-size: 23px;
   font-family: "Oswald", sans-serif;
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 0 12px;
   text-decoration: underline;
 }
 
 .button_time:active {
-  background-color: #FF6B00
+  background-color: #ff6b00;
 }
 
 .button_parcours {
@@ -198,101 +191,93 @@ body {
   border-radius: 10px;
 }
 
-.set-next-step{
-    background-image: url("./Components/Assets/direct.png");
-    background-repeat: no-repeat;
-    background-size: 45px;
-    background-position: center;
-    position: absolute;
-    height: 62px;
-    width: 62px;
-    padding: 9px 9px;
-    background-color: #96b7d9;
-    border: none;
-    bottom: 60px;
-    left: 10px;
-    border-radius: 10px;
+.set-next-step {
+  background-image: url("./Components/Assets/direct.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-position: center;
+  position: absolute;
+  height: 62px;
+  width: 62px;
+  padding: 9px 9px;
+  background-color: #96b7d9;
+  border: none;
+  bottom: 60px;
+  left: 10px;
+  border-radius: 10px;
 }
-
 
 /* ------------------------ Quiz --------------*/
 
-.question{
-    display: flex;
-    justify-content: center;
+.question {
+  display: flex;
+  justify-content: center;
 }
-
 
 .container-quiz {
   margin: 10px;
 }
 
-.container-quiz-question{
-    font-family: "Oswald", sans-serif;
-    font-size: 13px;
-    height: 60px;
-    color: rgb(0, 0, 0);
-    text-align: center;
-    margin-bottom: 20px;
+.container-quiz-question {
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  height: 60px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.quiz-question{
-    margin: 1% auto;
-    font-size: 20px;
-    text-align: center;
-    color: #000000;
-    font-weight: bold;
-    font-family: "Oswald", sans-serif;
+.quiz-question {
+  margin: 1% auto;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+  font-weight: bold;
+  font-family: "Oswald", sans-serif;
 }
 
 .container-quiz-answer {
- margin: 0;
- text-align: center;
- 
+  margin: 0;
+  text-align: center;
 }
 .container-quiz-answer .quiz-answer {
-    border: 1px solid black;
-    border-radius: 20px;
-    margin: 1% auto;
-    text-align: center;
-    background-color: transparent;
-    height: 45px;
-    width: 80%;
-    font-size: 20px;
- }
-
- .quiz-answer{
-     margin: 1% auto;
- }
-
-
- .container-quiz-answer .quiz-answer:active {
- background-color: #7fcdf1;
- }
-.container-quiz-answer  p {
- font-family: "Oswald", sans-serif;
- margin-top: 10px;
- font-weight: bold;
- font-size: 12px;
- margin-left: auto;
- margin-right: auto;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 1% auto;
+  text-align: center;
+  background-color: transparent;
+  height: 45px;
+  width: 80%;
+  font-size: 20px;
 }
 
+.quiz-answer {
+  margin: 1% auto;
+}
 
-.button-continue-road{
-    border: 1px solid black;
-    border-radius: 20px;
-    margin: 15% auto;
-    text-align: center;
-    background-color: transparent;
-    height: 50px;
-    width: 85%;
-    font-size: 20px;
+.container-quiz-answer .quiz-answer:active {
+  background-color: #7fcdf1;
+}
+.container-quiz-answer p {
+  font-family: "Oswald", sans-serif;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-continue-road {
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 15% auto;
+  text-align: center;
+  background-color: transparent;
+  height: 50px;
+  width: 85%;
+  font-size: 20px;
 }
 
 .button-continue-road:active {
-    background-color: #7b98b4;
+  background-color: #7b98b4;
 }
-
-
- 

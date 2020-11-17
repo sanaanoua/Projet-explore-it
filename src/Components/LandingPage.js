@@ -4,13 +4,10 @@ import logo from "./Assets/Explore_it_logo.jpg";
 import { motion } from "framer-motion";
 
 class LandingPage extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {
-    
-    }
+    this.state = {};
   }
-
 
   render() {
     return (
@@ -21,10 +18,9 @@ class LandingPage extends React.Component {
         transition={{ transition: "linear" }}
         className="container"
       >
-        <img className="logo" src={logo} alt="logo" />
-        <Card 
+        <Card
           tripTime={this.props.tripTime}
-          handleTime = {this.props.handleTime}  
+          handleTime={this.props.handleTime}
         />
       </motion.div>
     );
