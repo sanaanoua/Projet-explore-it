@@ -9,8 +9,8 @@ class Map extends React.Component {
       service: null,
       renderer: null,
       matrix: null,
-      myPosition: { lat: 0, lng: 0 },
-      lastStep: null,
+      myPosition: this.setMyPosition(),
+      lastStep: this.setLastStepPosition(),
       arrayTrip: [],
       arrayTripInfo: [],
       raduisPlace: 1000,
@@ -46,21 +46,21 @@ class Map extends React.Component {
         this.displayRoute();
         this.getDistance();
       } else if (
-        prevState.myPosition.lat !== this.state.myPosition.lat ||   
+        prevState.myPosition.lat !== this.state.myPosition.lat ||
         prevState.myPosition.lng !== this.state.myPosition.lng
       ) {
         this.displayRoute();
         this.getDistance();
-      // } else if(prevProps.currentStep !== this.props.currentStep){
-      //    this.displayRoute();
-      //    this.getDistance();
+        // } else if(prevProps.currentStep !== this.props.currentStep){
+        //    this.displayRoute();
+        //    this.getDistance();
       }
     }
   }
 
   componentWillUnmount() {}
 
-  // Load the map 
+  // Load the map
   onLoad = () => {
     const mapOptions = {
       center: this.state.myPosition,
@@ -92,12 +92,12 @@ class Map extends React.Component {
       case 4:
         this.setState({ raduisPlace: 15000 });
         break;
-      default :
-        this.setState({ raduisPlace: 1000});
+      default:
+        this.setState({ raduisPlace: 1000 });
     }
   };
 
- // Allow to track the user position
+  // Allow to track the user position
   trackUserPosition = () => {
     navigator.geolocation.watchPosition((pos) => {
       this.setState({
@@ -115,13 +115,36 @@ class Map extends React.Component {
         },
       });
       this.setState({
-        myPosition: { lat: position.coords.latitude, lng: position.coords.longitude },
+        myPosition: {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        },
       });
     });
   };
 
+  setLastStepPosition = () => {
+    let res;
+    navigator.geolocation.getCurrentPosition((position) => {
+      res = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    });
+    return res;
+  };
+
+  setMyPosition = () => {
+    let res;
+    navigator.geolocation.getCurrentPosition((position) => {
+      res = { lat: position.coords.latitude, lng: position.coords.longitude };
+    });
+    return res;
+  };
+
   getPlaces = () => {
     this.setRadius();
+    console.log("lastStep", this.state.lastStep);
     let request = {
       location: this.state.lastStep,
       radius: this.state.raduisPlace,
@@ -130,15 +153,19 @@ class Map extends React.Component {
     const service = new window.google.maps.places.PlacesService(this.state.map);
     service.nearbySearch(request, (results, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+        console.log("res", results);
         results.map((e, i) => {
           if (i < 5) {
             this.setState({
-              arrayTrip: [...this.state.arrayTrip, { placeId: e.place_id}],
+              arrayTrip: [...this.state.arrayTrip, { placeId: e.place_id }],
             });
             this.setState({
-              arrayTripInfo: [...this.state.arrayTripInfo, { name : e.name, placeId : e.place_id, photos: e.photos}]
-            })
-            if(window.google){
+              arrayTripInfo: [
+                ...this.state.arrayTripInfo,
+                { name: e.name, placeId: e.place_id, photos: e.photos },
+              ],
+            });
+            if (window.google) {
               this.props.handleTrip(this.state.arrayTripInfo);
             }
             this.props.handleTrip(this.state.arrayTripInfo);
@@ -150,7 +177,6 @@ class Map extends React.Component {
       });
     });
   };
-
 
   // Display the road on the map
   displayRoute = () => {
@@ -176,16 +202,14 @@ class Map extends React.Component {
     };
     this.state.matrix.getDistanceMatrix(option, (result, status) => {
       if (status === "OK") {
-         this.props.handleStepDistance(result.rows[0].elements[0].distance);
+        this.props.handleStepDistance(result.rows[0].elements[0].distance);
       }
     });
   };
 
   // Recenter the map on the user position with the click button
   handleReCenter = () => {
-    this.state.map.setCenter(
-      this.state.myPosition
-    )
+    this.state.map.setCenter(this.state.myPosition);
     this.state.map.setZoom(20);
   };
 
