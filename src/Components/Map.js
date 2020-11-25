@@ -9,46 +9,80 @@ class Map extends React.Component {
       service: null,
       renderer: null,
       matrix: null,
-      myPosition: this.setMyPosition(),
-      lastStep: this.setLastStepPosition(),
+      myPosition: this.props.myPosition,
+      lastStep: this.props.myPosition,
       arrayTrip: [],
       arrayTripInfo: [],
       raduisPlace: 1000,
       stepDistance: null,
       stepTime: null,
+      key: "",
     };
     this.myRef = React.createRef();
-    this.setUserPosition();
+
     this.trackUserPosition();
   }
 
   componentDidMount() {
-    setInterval(() => this.trackUserPosition(), 5000);
-    if (!window.google) {
-      const loader = new Loader({
-        apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        version: "weekly",
-        libraries: ["places"],
-      });
-      loader.load().then(() => {
-        this.onLoad();
-        this.getPlaces();
-      });
-    } else {
-      this.onLoad();
-      this.getPlaces();
-    }
+    //this.getPos();
+    const setUserPositionP = new Promise((resolve, reject) => {
+      resolve(this.setUserPosition());
+    });
+
+    setUserPositionP.then(() => {
+      console.log("lastStep", this.state.lastStep);
+      setInterval(() => this.trackUserPosition(), 5000);
+      if (!window.google) {
+        const loader = new Loader({
+          apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+          version: "weekly",
+          libraries: ["places"],
+        });
+        loader.load().then(() => {
+          const onloadP = new Promise((resolve, reject) => {
+            resolve(this.onLoad());
+          });
+          onloadP.then(() => {
+            console.log("then");
+            this.getPlaces();
+          });
+        });
+      } else {
+        console.log("else");
+        const onloadP = new Promise((resolve, reject) => {
+          resolve(this.onLoad());
+        });
+        onloadP.then(() => {
+          console.log("then");
+          this.getPlaces();
+        });
+      }
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //console.log('props',nextProps.location,this.props.location)
+    // if (nextProps.location.key !== this.state.key && this.state.lastStep.lat === 0) {
+    //   // navigated!
+    //   this.setState({key: nextProps.location.key})
+    //   this.getAllFunction();
+    // }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (window.google) {
       if (prevState.arrayTrip.length !== this.state.arrayTrip.length) {
+        console.log("update ar");
+        //this.setUserPosition()
         this.displayRoute();
         this.getDistance();
       } else if (
-        prevState.myPosition.lat !== this.state.myPosition.lat ||
-        prevState.myPosition.lng !== this.state.myPosition.lng
+        prevState.myPosition &&
+        (prevState.myPosition.lat !== this.state.myPosition.lat ||
+          prevState.myPosition.lng !== this.state.myPosition.lng)
       ) {
+        //this.getAllFunction()
+        console.log("update my pos");
         this.displayRoute();
         this.getDistance();
         // } else if(prevProps.currentStep !== this.props.currentStep){
@@ -107,23 +141,17 @@ class Map extends React.Component {
   };
 
   setUserPosition = () => {
+    let res;
     navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({
-        lastStep: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        },
-      });
-      this.setState({
-        myPosition: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        },
-      });
+      res = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+      this.setState({ myPosition: res, lastStep: res });
     });
   };
 
-  setLastStepPosition = () => {
+  getPos = () => {
     let res;
     navigator.geolocation.getCurrentPosition((position) => {
       res = {
@@ -131,29 +159,19 @@ class Map extends React.Component {
         lng: position.coords.longitude,
       };
     });
-    return res;
-  };
-
-  setMyPosition = () => {
-    let res;
-    navigator.geolocation.getCurrentPosition((position) => {
-      res = { lat: position.coords.latitude, lng: position.coords.longitude };
-    });
-    return res;
   };
 
   getPlaces = () => {
     this.setRadius();
-    console.log("lastStep", this.state.lastStep);
     let request = {
       location: this.state.lastStep,
       radius: this.state.raduisPlace,
       types: ["restaurant"],
     };
+    console.log("request", request);
     const service = new window.google.maps.places.PlacesService(this.state.map);
     service.nearbySearch(request, (results, status) => {
       if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-        console.log("res", results);
         results.map((e, i) => {
           if (i < 5) {
             this.setState({

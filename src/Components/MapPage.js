@@ -12,7 +12,7 @@ class MapPage extends Component {
       arrayTripInfo: [],
       currentStep: 0,
       hasName: false,
-      isQuizAvailable: false
+      isQuizAvailable: false,
     };
     this.handleStepDistance = this.handleStepDistance.bind(this);
     this.handleTrip = this.handleTrip.bind(this);
@@ -20,36 +20,32 @@ class MapPage extends Component {
     this.handleNextStep = this.handleNextStep.bind(this);
   }
 
-  handleStepDistance(distance){
-    this.setState({stepDistance : distance.text})
-    if(distance.value < 10) {
-      this.setState({ isQuizAvailable: true});
-      this.setState({ currentStep: this.state.currentStep + 1});
-    }else{
-      this.setState({ isQuizAvailable: false})
+  handleStepDistance(distance) {
+    this.setState({ stepDistance: distance.text });
+    if (distance.value < 10) {
+      this.setState({ isQuizAvailable: true });
+      this.setState({ currentStep: this.state.currentStep + 1 });
+    } else {
+      this.setState({ isQuizAvailable: false });
     }
   }
 
-  handleTrip(newArray){
+  handleTrip(newArray) {
     if (window.google) {
       this.setState({ arrayTripInfo: newArray });
       this.setState({ hasName: true });
     }
   }
- 
 
-  handleNextStep(){
-    this.setState({ currentStep: this.state.currentStep + 1});
+  handleNextStep() {
+    this.setState({ currentStep: this.state.currentStep + 1 });
   }
 
-
-  handleIsQuizAvailable(){
-    this.setState({isQuizAvailable : !this.state.isQuizAvailable})
+  handleIsQuizAvailable() {
+    this.setState({ isQuizAvailable: !this.state.isQuizAvailable });
   }
 
-  componentDidUpdate(){    
-    
-  }
+  componentDidUpdate() {}
 
   render() {
     return (
@@ -63,27 +59,27 @@ class MapPage extends Component {
         <div className="content-map-page">
           <Link to="/" className="return-landing-page"></Link>
           <p className="next-pos">
-            {this.state.hasName ? 
-              this.state.arrayTripInfo[this.state.currentStep].name 
-              : "No next step"
-            } 
+            {this.state.hasName
+              ? this.state.arrayTripInfo[this.state.currentStep].name
+              : "No next step"}
           </p>
 
           <p className="dist-next-pos">{this.state.stepDistance}</p>
         </div>
-        <Map className="map-container" 
-          stepDistance={this.state.stepDistance} 
+        <Map
+          className="map-container"
+          stepDistance={this.state.stepDistance}
           currentStep={this.state.currentStep}
-          {...this.props} 
-         
+          {...this.props}
           handleTrip={this.handleTrip}
           handleStepDistance={this.handleStepDistance}
           handleNextStep={this.handleNextStep}
         />
-        <Slider 
+        <Slider
           {...this.props}
           isQuizAvailable={this.state.isQuizAvailable}
-          handleIsQuizAvailable={this.handleIsQuizAvailable}/>
+          handleIsQuizAvailable={this.handleIsQuizAvailable}
+        />
       </motion.div>
     );
   }
