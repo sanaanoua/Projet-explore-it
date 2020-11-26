@@ -1,43 +1,61 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import Questionnaire from "./Questionnaire";
-const API_URL =
-  "https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple";
 
-function QuestionAPI() {
-  const [question, setQuestions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [score, setScore] = useState(0);
+class QuestionAPI extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions: [],
+      currentQuestion: 0,
+    };
+    this.handleAnswer = this.handleAnswer.bind(this);
+  }
 
-  useEffect(() => {
-    fetch(API_URL)
+  componentDidMount() {
+    fetch(
+      "https://opentdb.com/api.php?amount=3&category=9&difficulty=easy&type=multiple"
+    )
       .then((res) => res.json())
       .then((data) => {
-        setQuestions(data.results);
+        console.log(data);
+        this.setState({
+          questions: data.results,
+        });
       });
-  }, []);
+  }
 
-  const handleAnswer = (answer) => {
-    const newIndex = currentIndex + 1;
-    setCurrentIndex(newIndex);
-
-    if (answer === question[currentIndex].correct_answer) {
-      setScore(score + 1);
-    }
+  handleAnswer = () => {
+    this.setState({
+      currentQuestion: this.state.currentQuestion + 1,
+    });
   };
 
-  return question.length > 0 ? (
-    <div className="question">
-      {currentIndex >= question.length ? (
-        <h1 className="score">Your score was {score}</h1>
-      ) : (
-        <Questionnaire
-          data={question[currentIndex]}
-          handleAnswer={handleAnswer}
-        />
-      )}
-    </div>
-  ) : (
-    <h2 className="loading-quizz">Loading... </h2>
-  );
+  // handleClickEndQuizz = () => {
+  //   this.props.handleIsQuizAvailable();
+  //   this.props.handleNextStep();
+  // };
+
+  render() {
+    return this.state.questions.length > 0 ? (
+      <div className="question">
+        {this.state.currentQuestion < this.state.questions.length ? (
+          <Questionnaire
+            data={this.state.questions[this.state.currentQuestion]}
+            handleAnswer={this.handleAnswer}
+          />
+        ) : (
+          <button
+            className="button-continue-road"
+            onClick={() => this.props.handleNextStep()}
+          >
+            Continue Trip !
+          </button>
+        )}
+      </div>
+    ) : (
+      <p> Loading </p>
+    );
+  }
 }
+
 export default QuestionAPI;
