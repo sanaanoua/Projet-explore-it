@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import QuestionAPI from "./QuestionAPI";
 
 const Slider = (props) => {
-  const [show, isShow ] = useState(false);
+  const [show, isShow] = useState(false);
   return (
     <div
       id="slider"
@@ -16,7 +16,7 @@ const Slider = (props) => {
       <div
         className="image-swipe-container"
         onClick={() => {
-          isShow((state) => !state)
+          isShow((state) => !state);
         }}
         style={{
           //transform: `rotate(${show ? 270 : 90}deg)`,
@@ -24,9 +24,10 @@ const Slider = (props) => {
           transition: "transform 0.5s cubic-bezier(0.61, 1, 0.88, 1)",
         }}
       ></div>
-      <QuestionAPI 
+      <QuestionAPI
         isQuizAvailable={props.isQuizAvailable}
-        handleIsQuizAvailable={props.handleIsQuizAvailable}/>
+        handleNextStep={props.handleNextStep}
+      />
     </div>
   );
 };

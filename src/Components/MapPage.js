@@ -24,7 +24,7 @@ class MapPage extends Component {
     this.setState({ stepDistance: distance.text });
     if (distance.value < 10) {
       this.setState({ isQuizAvailable: true });
-      this.setState({ currentStep: this.state.currentStep + 1 });
+      //this.setState({ currentStep: this.state.currentStep + 1 });
     } else {
       this.setState({ isQuizAvailable: false });
     }
@@ -73,12 +73,12 @@ class MapPage extends Component {
           {...this.props}
           handleTrip={this.handleTrip}
           handleStepDistance={this.handleStepDistance}
-          handleNextStep={this.handleNextStep}
         />
         <Slider
           {...this.props}
           isQuizAvailable={this.state.isQuizAvailable}
           handleIsQuizAvailable={this.handleIsQuizAvailable}
+          handleNextStep={this.handleNextStep}
         />
       </motion.div>
     );

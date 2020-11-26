@@ -72,8 +72,6 @@ class Map extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (window.google) {
       if (prevState.arrayTrip.length !== this.state.arrayTrip.length) {
-        console.log("update ar");
-        //this.setUserPosition()
         this.displayRoute();
         this.getDistance();
       } else if (
@@ -81,13 +79,11 @@ class Map extends React.Component {
         (prevState.myPosition.lat !== this.state.myPosition.lat ||
           prevState.myPosition.lng !== this.state.myPosition.lng)
       ) {
-        //this.getAllFunction()
-        console.log("update my pos");
         this.displayRoute();
         this.getDistance();
-        // } else if(prevProps.currentStep !== this.props.currentStep){
-        //    this.displayRoute();
-        //    this.getDistance();
+      } else if (prevProps.currentStep !== this.props.currentStep) {
+        this.displayRoute();
+        this.getDistance();
       }
     }
   }
@@ -236,7 +232,6 @@ class Map extends React.Component {
       <>
         <div id="map" className="map" ref={this.myRef} />
         <button className="setdirection" onClick={this.handleReCenter}></button>
-        {/* <button className="set-next-step" onClick={this.props.handleNextStep}></button> */}
       </>
     );
   }
