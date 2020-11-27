@@ -167,9 +167,6 @@ body {
 }
 
 .image-swipe-container {
-  background-image: url("./Components/Assets/left-arrow.png");
-  background-repeat: no-repeat;
-  background-size: cover;
   height: 16px;
   width: 16px;
   margin: 7px auto;

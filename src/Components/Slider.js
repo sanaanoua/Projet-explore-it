@@ -13,17 +13,7 @@ const Slider = (props) => {
         transition: "transform 0.5s cubic-bezier(0.61, 1, 0.88, 1)",
       }}
     >
-      <div
-        className="image-swipe-container"
-        onClick={() => {
-          isShow((state) => !state);
-        }}
-        style={{
-          //transform: `rotate(${show ? 270 : 90}deg)`,
-          transform: `rotate(${props.isQuizAvailable ? 270 : 90}deg)`,
-          transition: "transform 0.5s cubic-bezier(0.61, 1, 0.88, 1)",
-        }}
-      ></div>
+      <div className="image-swipe-container"></div>
       <QuestionAPI
         isQuizAvailable={props.isQuizAvailable}
         handleNextStep={props.handleNextStep}
