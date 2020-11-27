@@ -1,0 +1,280 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+/* -----------------------------------------INITIAL ---------------------------------------------------------------------------------------*/
+.App {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+/* ----------------------------------------- LANDING PAGE  -----------------------------*/
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  position: absolute;
+  height: 10vh;
+  z-index: 5;
+}
+
+/* --------------- CARD ----------- */
+.card {
+  width: 100vw;
+  height: 100vh;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  background: white;
+}
+
+.card_image {
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  z-index: 1;
+}
+
+.content {
+  position: absolute;
+  top: 72%;
+  text-align: center;
+  width: 100%;
+  height: 30%;
+  font-family: "Oswald", sans-serif;
+}
+
+.card_title {
+  font-size: 23px;
+  margin: 3% auto;
+  padding: 0;
+}
+
+.button_container {
+  display: flex;
+  width: 80%;
+  margin: 2% auto 5% auto;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.button_time {
+  border: 2px solid rgb(90, 28, 204);
+  background-color: white;
+  font-size: 23px;
+  font-family: "Oswald", sans-serif;
+  border-radius: 15px;
+  padding: 0 12px;
+  text-decoration: underline;
+}
+
+.button_time:active {
+  background-color: #ff6b00;
+}
+
+.button_parcours {
+  border: 1px solid;
+  border-radius: 20px;
+  background-color: white;
+  text-decoration: none;
+  font-family: "Oswald", sans-serif;
+  font-size: 27px;
+  width: 80%;
+  margin: 0 auto;
+  box-shadow: 2px 2px 5px #525252;
+}
+
+/* ----------- Navbar --------*/
+/* ----------------------------------------- MAP-PAGE -----------------------------*/
+/* ------------------------ Header ---------- */
+.container-map-page {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.content-map-page {
+  background-color: #96b7d9;
+  position: absolute;
+  z-index: 100;
+  top: 40px;
+  height: 40px;
+  width: 335px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  display: flex;
+  border-radius: 20px;
+}
+
+.next-pos {
+  padding: 0;
+  margin: auto;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+}
+
+.dist-next-pos {
+  padding: 0;
+  margin: auto;
+  font-family: "Oswald", sans-serif;
+  font-size: 18px;
+}
+
+.return-landing-page {
+  background-image: url("./Components/Assets/left-arrow.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 16px;
+  width: 16px;
+  margin: auto;
+}
+
+/* ------------------------ Map --------------*/
+.map-container {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.map {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* ------------------------ swipe up --------------*/
+
+.slider {
+  position: absolute;
+  background-color: #96b7d9;
+  height: 370px;
+  bottom: -340px;
+  border-radius: 20px;
+  width: 100vw;
+}
+
+.image-swipe-container {
+  height: 16px;
+  width: 16px;
+  margin: 7px auto;
+}
+
+.setdirection {
+  background-image: url("./Components/Assets/direct.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-position: center;
+  position: absolute;
+  height: 62px;
+  width: 62px;
+  padding: 9px 9px;
+  background-color: #96b7d9;
+  border: none;
+  bottom: 60px;
+  right: 10px;
+  border-radius: 10px;
+}
+
+.set-next-step {
+  background-image: url("./Components/Assets/direct.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-position: center;
+  position: absolute;
+  height: 62px;
+  width: 62px;
+  padding: 9px 9px;
+  background-color: #96b7d9;
+  border: none;
+  bottom: 60px;
+  left: 10px;
+  border-radius: 10px;
+}
+
+/* ------------------------ Quiz --------------*/
+
+.question {
+  display: flex;
+  justify-content: center;
+}
+
+.container-quiz {
+  margin: 10px;
+}
+
+.container-quiz-question {
+  font-family: "Oswald", sans-serif;
+  font-size: 13px;
+  height: 60px;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.quiz-question {
+  margin: 1% auto;
+  font-size: 20px;
+  text-align: center;
+  color: #000000;
+  font-weight: bold;
+  font-family: "Oswald", sans-serif;
+}
+
+.container-quiz-answer {
+  margin: 0;
+  text-align: center;
+}
+.container-quiz-answer .quiz-answer {
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 1% auto;
+  text-align: center;
+  background-color: transparent;
+  height: 45px;
+  width: 80%;
+  font-size: 20px;
+}
+
+.quiz-answer {
+  margin: 1% auto;
+}
+
+.container-quiz-answer .quiz-answer:active {
+  background-color: #7fcdf1;
+}
+.container-quiz-answer p {
+  font-family: "Oswald", sans-serif;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button-continue-road {
+  border: 1px solid black;
+  border-radius: 20px;
+  margin: 15% auto;
+  text-align: center;
+  background-color: transparent;
+  height: 50px;
+  width: 85%;
+  font-size: 20px;
+}
+
+.button-continue-road:active {
+  background-color: #7b98b4;
+}
